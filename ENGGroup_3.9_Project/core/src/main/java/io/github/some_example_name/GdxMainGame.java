@@ -37,11 +37,11 @@ public class GdxMainGame extends ApplicationAdapter {
     public void render() {
 
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
-            isPaused = !isPaused; // Toggle pause state
+            isPaused = !isPaused; // Toggle pause state when escape key is pressed
         }
         
         if (!isPaused) {
-            player.Move();
+            player.Move(); // Update player movement only when the game is not paused
         }
 
         //locks the camera onto the players coordinates so that the camera is always over the player
@@ -58,10 +58,10 @@ public class GdxMainGame extends ApplicationAdapter {
         player.draw(batch);
 
         if (isPaused) {
-            pauseMenu.draw();
+            pauseMenu.draw(); // Draw the pause menu when the game is paused
         }
         
-        batch.end();
+        batch.end(); //ends rendering from here
     }
 
     @Override
