@@ -10,6 +10,15 @@ public class PauseMenu extends Menu {
     // The camera, used to position the menu relative to what the player sees. Makes menu fixed on screen.
     private OrthographicCamera camera;
 
+    /**
+     * Constructor for the PauseMenu class.
+     *
+     * @param batch  The SpriteBatch used to draw the menu's images and text to the screen.
+     * @param camera The OrthographicCamera used to position the menu relative to what the player sees.
+     * 
+     * @author Oliver Lockett
+     */
+
     public PauseMenu(SpriteBatch batch, OrthographicCamera camera) {
         this.batch = batch;
         this.camera = camera;
