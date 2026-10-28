@@ -5,13 +5,13 @@ public class Player extends GameObject {
     public Player(float startX, float startY) {
         super(startX, startY);//initialises a new instance of player at specified coords using GameObject
     }
-    public Move() {
+    public void Move() {
 
     }
-    public Interact() {
+    public void Interact() {
 
     }
-    public UseItem() {
+    public void UseItem() {
         
     }
 }

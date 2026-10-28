@@ -1,4 +1,5 @@
 package io.github.some_example_name.Sprites.GameObjects;
+import io.github.some_example_name.Sprites.Sprite;
 
 public class GameObject extends Sprite {
 
@@ -12,18 +13,24 @@ public class GameObject extends Sprite {
         this.y = StartY;
     }
 
+    //Default constructer in case we want to spawn a new game object without knowing its coords
+    public GameObject() {
+        this.x = 0;
+        this.y = 0;
+    }
+
     //getters and setters for GameObject so other classes can access x and y coords
-    public getX() {
+    public float getX() {
         return x;
     }
-    public setX(float x) {
+    public void setX(float x) {
         this.x = x;
     }
 
-    public gety() {
+    public float gety() {
         return y;
     }
-    public sety(float y) {
+    public void sety(float y) {
         this.y = y;
     }
 }
