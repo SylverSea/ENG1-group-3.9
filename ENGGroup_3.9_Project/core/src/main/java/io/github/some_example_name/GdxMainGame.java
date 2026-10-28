@@ -5,6 +5,9 @@ import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
+import io.github.some_example_name.Pannels.Menus.PauseMenu;
 
 import io.github.some_example_name.Sprites.GameObjects.Player;
 
@@ -13,6 +16,8 @@ public class GdxMainGame extends ApplicationAdapter {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private Player player;
+    private boolean isPaused = false;
+    private PauseMenu pauseMenu;
 
     @Override
     public void create() {
@@ -21,6 +26,9 @@ public class GdxMainGame extends ApplicationAdapter {
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
 
+        //initialize the pause menu
+        pauseMenu = new PauseMenu(batch, camera);
+
         //spawns in the player
         player = new Player(400f, 240f);;
     }
@@ -28,7 +36,13 @@ public class GdxMainGame extends ApplicationAdapter {
     @Override
     public void render() {
 
-        player.Move();
+        if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE)) {
+            isPaused = !isPaused; // Toggle pause state
+        }
+        
+        if (!isPaused) {
+            player.Move();
+        }
 
         //locks the camera onto the players coordinates so that the camera is always over the player
         camera.position.set(player.getX(), player.getY(), 0);
@@ -43,6 +57,10 @@ public class GdxMainGame extends ApplicationAdapter {
         //all drawing code needs to go in here
         player.draw(batch);
 
+        if (isPaused) {
+            pauseMenu.draw();
+        }
+        
         batch.end();
     }
 
