@@ -29,6 +29,7 @@ public class GdxMainGame extends ApplicationAdapter {
     public void render() {
 
         player.Move();
+
         //locks the camera onto the players coordinates so that the camera is always over the player
         camera.position.set(player.getX(), player.getY(), 0);
         camera.update();
@@ -40,6 +41,7 @@ public class GdxMainGame extends ApplicationAdapter {
         batch.begin();//starts rendering from here
 
         //all drawing code needs to go in here
+        player.draw(batch);
 
         batch.end();
     }
@@ -47,6 +49,7 @@ public class GdxMainGame extends ApplicationAdapter {
     @Override
     public void dispose() {
         batch.dispose();
+        player.dispose();
     }
 
     

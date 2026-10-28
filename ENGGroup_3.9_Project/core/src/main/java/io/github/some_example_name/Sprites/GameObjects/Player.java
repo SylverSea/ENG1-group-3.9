@@ -3,11 +3,18 @@ package io.github.some_example_name.Sprites.GameObjects;
 //import libraries to allow detection of key inputs and should make movement speed independent of framerate (fingers crossed)
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
+//allows player to be rendered
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player extends GameObject {
 
+    private Texture playerTexture;//declare player texture
+
     public Player(float startX, float startY) {
         super(startX, startY);//constructer - initialises a new instance of player at specified coords using GameObject
+        //load player image
+        playerTexture = new Texture("player.png");
     }
 
     public void Move() {
@@ -36,6 +43,15 @@ public class Player extends GameObject {
 
 
     }
+    //draw meathod allows player to draw itself
+    public void draw(SpriteBatch batch) {
+        batch.draw(playerTexture, x, y);
+    }
+    //deletes player texture when game closes to save memory
+    public void dispose() {
+        playerTexture.dispose();
+    }
+
     public void Interact() {
 
     }
