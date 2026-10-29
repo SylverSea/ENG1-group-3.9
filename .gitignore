@@ -1,0 +1,24 @@
+# Gradle & Build Artifacts
+.gradle/
+build/
+bin/
+out/
+*.class
+*.jar
+*.war
+
+# IDE & Editor Files
+.vscode/
+.idea/
+*.iml
+*.ipr
+*.iws
+.classpath
+.project
+.settings/
+*.nb-cache/
+
+# OS Generated Files
+.DS_Store
+Thumbs.db
+desktop.ini
