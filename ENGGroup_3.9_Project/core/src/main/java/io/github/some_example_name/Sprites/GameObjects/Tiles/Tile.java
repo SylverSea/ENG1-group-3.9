@@ -9,11 +9,12 @@ public class Tile extends GameObject {
 
     private static final float SCALE = 1 / 32f;
 
+    private final Viewport gameViewport; 
+
     protected final Texture texture;
     protected final int xCoord;
     protected final int yCoord;
-
-    private final Viewport gameViewport; 
+    protected boolean visible = true;
 
     /**
      * Constructor for Tile, with the least detail that can be added.
@@ -56,5 +57,18 @@ public class Tile extends GameObject {
     }
     public float getY() {
         return yCoord;
+    }
+    public boolean isVisible() {
+        return visible;
+    }
+
+    //Changes the tile's visibility.
+    public void setInvisible() {
+        visible = false;
+        this.setColor(1f, 1f, 1f, 0f);
+    }
+    public void setVisible() {
+        visible = true;
+        this.setColor(1f, 1f, 1f, 1f);
     }
 }
