@@ -30,7 +30,9 @@ public class GdxMainGame extends Game {
         //initialize the camera
         camera = new OrthographicCamera();
         camera.setToOrtho(false, 800, 480);
-
+        camera.position.set(400, 240, 0);  //test code delete later, currently just spawns the camera in a starting position to be sure we could render player
+        camera.update();                          //test
+        
         //initialize the pause menu
         pauseMenu = new PauseMenu(batch, camera);
 
@@ -52,20 +54,28 @@ public class GdxMainGame extends Game {
         }
 
         //locks the camera onto the players coordinates so that the camera is always over the player
-        camera.position.set(player.getX(), player.getY(), 0);
-        camera.update();
+        //camera.position.set(player.getX(), player.getY(), 0);
+        //camera.update();                                                  //this all needs replacing as it doesnt currently work i think
 
         //add teh camera to the batch projection matrix
         batch.setProjectionMatrix(camera.combined);
 
         ScreenUtils.clear(Color.RED); //clears the screen before drawing loop
 
-        batch.setProjectionMatrix(viewport.getCamera().combined);
+        //batch.setProjectionMatrix(viewport.getCamera().combined);
 
         batch.begin();//starts rendering from here
 
         //all drawing code needs to go in here
-        player.draw(batch);
+
+        //draws the player using batch.draw instead of player.draw(batch) which seems to work better
+        batch.draw(
+            player.getTexture(),
+            player.getX(),
+            player.getY(),
+            player.getWidth(),
+            player.getHeight()
+        );  
 
         if (isPaused) {
             pauseMenu.draw(); // Draw the pause menu when the game is paused

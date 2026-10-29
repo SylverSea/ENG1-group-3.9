@@ -16,7 +16,7 @@ public class Player extends GameObject {
 
     public void Move(float deltaTime) {
         //calculate speed from delta time which makes it independent of frame rate (so no movement lag, yay)
-        float speed = 100 * deltaTime;
+        float speed = 200 * deltaTime;
 
         //W move player up
         if (Gdx.input.isKeyPressed(Input.Keys.W)){
