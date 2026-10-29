@@ -53,14 +53,16 @@ public class GdxMainGame extends Game {
             player.update(deltaTime); // Update player movement only when the game is not paused
         }
 
-        //locks the camera onto the players coordinates so that the camera is always over the player
-        //camera.position.set(player.getX(), player.getY(), 0);
-        //camera.update();                                                  //this all needs replacing as it doesnt currently work i think
+        //locks the camera onto the players cenral coordinates so that the camera is always over the player
+        camera.position.set(player.getX() + player.getWidth() / 2f,
+        player.getY() + player.getHeight() / 2f,
+        0);
+        camera.update();                                                  
 
-        //add teh camera to the batch projection matrix
+        //add the camera to the batch projection matrix
         batch.setProjectionMatrix(camera.combined);
 
-        ScreenUtils.clear(Color.RED); //clears the screen before drawing loop
+        ScreenUtils.clear(Color.GREEN); //clears the screen before drawing loop
 
         //batch.setProjectionMatrix(viewport.getCamera().combined);
 
