@@ -1,5 +1,6 @@
 package io.github.some_example_name.Sprites.GameObjects.Tiles;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -7,16 +8,6 @@ public class WallTile extends Tile {
 
     public boolean hasCollision = true;
 
-    /**
-     * Constructor for Tile, with the least detail that can be added.
-     * 
-     * @param gameViewport The game's viewport.
-     * 
-     * @author Sky Burrows
-     */
-    public WallTile(Viewport gameViewport) {
-        super(gameViewport);   
-    }
     /**
      * Constructor for Tile, with the most detail that can be added.
      * 
@@ -27,8 +18,8 @@ public class WallTile extends Tile {
      * 
      * @author Sky Burrows
      */
-    public WallTile(Texture texture, int x, int y, Viewport gameViewport) {
-        super(texture, x, y, gameViewport);
+    public WallTile(Texture texture, int x, int y, Viewport gameViewport, Game game) {
+        super(texture, x, y, gameViewport, game);
     }
 
     /**    

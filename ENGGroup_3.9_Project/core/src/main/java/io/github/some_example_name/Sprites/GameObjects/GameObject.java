@@ -37,6 +37,10 @@ public abstract class GameObject extends Sprite {
         this(texture, x, y, texture.getWidth(), texture.getHeight(), game);
     }
 
+    public void dispose() {
+        getTexture().dispose();
+    }
+
     /**
      * Draws the GameObject on the screen, adjusting for the camera position.
      *
@@ -52,6 +56,5 @@ public abstract class GameObject extends Sprite {
         }
         batch.draw(this.getTexture(), trueVertices, 0, SPRITE_SIZE);
     }
-
     public abstract void update(float deltaTime);
 }

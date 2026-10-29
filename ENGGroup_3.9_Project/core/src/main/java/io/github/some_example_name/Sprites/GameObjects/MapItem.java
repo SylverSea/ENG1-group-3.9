@@ -1,5 +1,6 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.math.Vector2;
@@ -18,20 +19,6 @@ public class MapItem extends GameObject {
     private int yCoord;
 
     /**
-     * Constructor for Tile, with the least detail that can be added.
-     * 
-     * @param gameViewport
-     */
-    public MapItem(Viewport gameViewport) {
-        super();
-
-        texture = null;
-        this.gameViewport = gameViewport;
-        xCoord = 0;
-        yCoord = 0;
-        itemID = "";
-    }
-    /**
      * Constructor for Tile, with the most detail that can be added.
      * 
      * @param texture      - The Tile's texture.
@@ -40,8 +27,8 @@ public class MapItem extends GameObject {
      * @param gameViewport - The game's viewport.
      * @param position     - The MapItem's position
      */
-    public MapItem(String itemID, Texture texture, int x, int y, Viewport gameViewport, Vector2 position) {
-        super(texture, x, y);
+    public MapItem(String itemID, Texture texture, int x, int y, Viewport gameViewport, Vector2 position, Game game) {
+        super(texture, x, y, game);
 
         this.texture = texture;
         this.gameViewport = gameViewport;
@@ -93,4 +80,9 @@ public class MapItem extends GameObject {
         xCoord = x;
         yCoord = y;
     }
+	@Override
+	public void update(float deltaTime) {
+		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("Unimplemented method 'update'");
+	}
 }

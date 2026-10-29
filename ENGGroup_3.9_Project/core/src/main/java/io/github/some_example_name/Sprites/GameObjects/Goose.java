@@ -1,3 +1,5 @@
+package io.github.some_example_name.Sprites.GameObjects;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 

@@ -1,5 +1,6 @@
 package io.github.some_example_name.Sprites.GameObjects.Tiles;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -17,21 +18,6 @@ public class Tile extends GameObject {
     protected boolean visible = true;
 
     /**
-     * Constructor for Tile, with the least detail that can be added.
-     * 
-     * @param gameViewport The game's viewport.
-     * 
-     * @author Sky Burrows
-     */
-    public Tile(Viewport gameViewport) {
-        super();
-
-        xCoord = 0;
-        yCoord = 0;
-        texture = null;
-        this.gameViewport = gameViewport;
-    }
-    /**
      * Constructor for Tile, with the most detail that can be added.
      * 
      * @param texture      - The Tile's texture.
@@ -42,8 +28,8 @@ public class Tile extends GameObject {
      * 
      * @author Sky Burrows
      */
-    public Tile(Texture texture, int x, int y, Viewport gameViewport) {
-        super(texture, x, y);
+    public Tile(Texture texture, int x, int y, Viewport gameViewport, Game game) {
+        super(texture, x, y, game);
 
         xCoord = x;
         yCoord = y;
@@ -70,5 +56,11 @@ public class Tile extends GameObject {
     public void setVisible() {
         visible = true;
         this.setColor(1f, 1f, 1f, 1f);
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'update'");
     }
 }

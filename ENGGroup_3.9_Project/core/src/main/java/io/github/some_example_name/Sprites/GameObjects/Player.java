@@ -10,46 +10,33 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player extends GameObject {
 
-    Texture playerTexture;
-
-    public Player(int x, int y) {
-        super(x, y);
-    }
     public Player(Texture texture, int x, int y, int width, int height, Game game) {
         super(texture, x, y, width, height, null); //constructer - initialises a new instance of player at specified coords using GameObject
-
-        playerTexture = texture;
     }
 
-    public void Move() {
+    public void Move(float deltaTime) {
         //calculate speed from delta time which makes it independent of frame rate (so no movement lag, yay)
-        float speed = 100f * Gdx.graphics.getDeltaTime();
+        float speed = 100 * deltaTime;
 
         //W move player up
         if (Gdx.input.isKeyPressed(Input.Keys.W)){
-            y += speed;
+            setY(getY() + Math.round(speed));
         }
 
         //S moves player down
         if (Gdx.input.isKeyPressed(Input.Keys.S)){
-            y -= speed;
+            setY(getY() - Math.round(speed));
         }
 
         //A moves player left
         if (Gdx.input.isKeyPressed(Input.Keys.A)){
-            x -= speed;
+            setX(getX() - Math.round(speed));
         }
 
         //D moves player right
         if (Gdx.input.isKeyPressed(Input.Keys.D)){
-            x += speed;
+            setX(getX() + Math.round(speed));
         }
-
-
-    }
-    //deletes player texture when game closes to save memory
-    public void dispose() {
-        playerTexture.dispose();
     }
 
     public void Interact() {
@@ -64,6 +51,6 @@ public class Player extends GameObject {
     }
 
     public void update(float deltaTime) {
-        throw new UnsupportedOperationException("Not supported yet.");
+        Move(deltaTime);
     }
 }

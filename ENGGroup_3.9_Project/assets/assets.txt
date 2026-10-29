@@ -1,2 +1,1 @@
-libgdx.png
 player.png

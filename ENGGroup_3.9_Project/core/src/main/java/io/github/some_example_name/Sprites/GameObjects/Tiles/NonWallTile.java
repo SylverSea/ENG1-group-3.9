@@ -1,5 +1,6 @@
 package io.github.some_example_name.Sprites.GameObjects.Tiles;
 
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -7,16 +8,6 @@ public class NonWallTile extends Tile {
 
     private boolean checksForPlayer = false;
 
-    /**
-     * Constructor for Tile, with the least detail that can be added.
-     * 
-     * @param gameViewport The game's viewport.
-     * 
-     * @author Sky Burrows
-     */
-    public NonWallTile(Viewport gameViewport) {
-        super(gameViewport);
-    }
     /**
      * Constructor for Tile, with the most detail that can be added.
      * 
@@ -28,8 +19,8 @@ public class NonWallTile extends Tile {
      * 
      * @author Sky Burrows
      */
-    public NonWallTile(Texture texture, int x, int y, Viewport gameViewport, boolean checksForPlayer) {
-        super(texture, x, y, gameViewport);
+    public NonWallTile(Texture texture, int x, int y, Viewport gameViewport, boolean checksForPlayer, Game game) {
+        super(texture, x, y, gameViewport, game);
         this.checksForPlayer = checksForPlayer;
     }
 
