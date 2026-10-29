@@ -22,7 +22,7 @@ public class GdxMainGame extends ApplicationAdapter {
         camera.setToOrtho(false, 800, 480);
 
         //spawns in the player
-        player = new Player(400f, 240f);;
+        player = new Player(400f, 240f);
     }
 
     @Override

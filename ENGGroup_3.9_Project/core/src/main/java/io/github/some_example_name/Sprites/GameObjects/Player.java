@@ -1,6 +1,6 @@
-<<<<<<< Updated upstream
 package io.github.some_example_name.Sprites.GameObjects;
 
+import com.badlogic.gdx.Game;
 //import libraries to allow detection of key inputs and should make movement speed independent of framerate (fingers crossed)
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
@@ -8,16 +8,10 @@ import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-=======
->>>>>>> Stashed changes
 public class Player extends GameObject {
 
-    private Texture playerTexture;//declare player texture
-
-    public Player(float startX, float startY) {
-        super(startX, startY);//constructer - initialises a new instance of player at specified coords using GameObject
-        //load player image
-        playerTexture = new Texture("player.png");
+    public Player(Texture texture, int x, int y, int width, int height, Game game) {
+        super(texture, x, y, width, height, game); //constructer - initialises a new instance of player at specified coords using GameObject
     }
 
     public void Move() {
@@ -64,5 +58,10 @@ public class Player extends GameObject {
 
     public void TakeDamage() {
 
+    }
+
+    @Override
+    public void update(float deltaTime) {
+        throw new UnsupportedOperationException("Not supported yet.");
     }
 }

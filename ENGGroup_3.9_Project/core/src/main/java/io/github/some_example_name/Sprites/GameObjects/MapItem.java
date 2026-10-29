@@ -1,8 +1,5 @@
-<<<<<<< Updated upstream
-package io.github.some_example_name.Sprites.GameObjects;
+import io.github.some_example_name.Sprites.GameObjects.GameObject;
 
-=======
->>>>>>> Stashed changes
 public class MapItem extends GameObject {
 
     public MapItem() {
