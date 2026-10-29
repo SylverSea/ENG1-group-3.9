@@ -30,7 +30,7 @@ public class GdxMainGame extends ApplicationAdapter {
         pauseMenu = new PauseMenu(batch, camera);
 
         //spawns in the player
-        player = new Player(400f, 240f);
+        player = new Player(400, 240);
     }
 
     @Override

@@ -1,14 +1,44 @@
 package io.github.some_example_name.Sprites.GameObjects;
-import com.badlogic.gdx.Game;
+
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
-public abstract class GameObject extends Sprite {
-    protected static final int SPRITE_SIZE = 20; // Assuming a fixed sprite size for simplicity
-    protected final Game game;
+public class GameObject extends Sprite {
+    private static final int SPRITE_SIZE = 20; // Assuming a fixed sprite size for simplicity
 
+    //declares X and Y coordinates for all game objects
+    protected float x;
+    protected float y;
+
+    //GameObject constructer, takes the starting x and y coords as peramiters and spawns a new game object at those coords
+    public GameObject(float StartX, float StartY) {
+        this.x = StartX;
+        this.y = StartY;
+    }
+
+    //Default constructer in case we want to spawn a new game object without knowing its coords
+    public GameObject() {
+        this.x = 0;
+        this.y = 0;
+    }
+
+    //getters and setters for GameObject so other classes can access x and y coords
+    public float getX() {
+        return x;
+    }
+    public void setX(float x) {
+        this.x = x;
+    }
+
+    public float getY() {
+        return y;
+    }
+    public void setY(float y) {
+        this.y = y;
+    }
+    
     /**
      * Creates a new GameObject with the specified texture and position.
      *
@@ -20,9 +50,8 @@ public abstract class GameObject extends Sprite {
      * @param position The position of the sprite.
      * @author Oliver Quantrill-Scott
      */
-    public GameObject(Texture texture, int x, int y, int width, int height, Game game) {
+    public GameObject(Texture texture, int x, int y, int width, int height, Vector2 position) {
         super(texture, x, y, width, height);
-        this.game = game;
     }
     /* Creates a new GameObject with the specified texture and position.
      * @param texture The texture for the sprite.
@@ -30,8 +59,8 @@ public abstract class GameObject extends Sprite {
      * @param y       The y-coordinate of the sprite.
      * @author Oliver Quantrill-Scott
      */
-    public GameObject(Texture texture, int x, int y, Game game) {
-        this(texture, x, y, texture.getWidth(), texture.getHeight(), game);
+    public GameObject(Texture texture, int x, int y) {
+        super(texture, x, y, texture.getWidth(), texture.getHeight());
     }
 
     /**
@@ -49,6 +78,4 @@ public abstract class GameObject extends Sprite {
         }
         batch.draw(this.getTexture(), trueVertices, 0, SPRITE_SIZE);
     }
-
-    public abstract void update(float deltaTime);
 }

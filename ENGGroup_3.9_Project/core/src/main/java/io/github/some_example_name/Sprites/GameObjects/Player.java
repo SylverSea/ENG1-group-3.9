@@ -10,8 +10,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 public class Player extends GameObject {
 
+    Texture playerTexture;
+
+    public Player(int x, int y) {
+        super(x, y);
+    }
     public Player(Texture texture, int x, int y, int width, int height, Game game) {
-        super(texture, x, y, width, height, game); //constructer - initialises a new instance of player at specified coords using GameObject
+        super(texture, x, y, width, height, null); //constructer - initialises a new instance of player at specified coords using GameObject
+
+        playerTexture = texture;
     }
 
     public void Move() {
@@ -40,10 +47,6 @@ public class Player extends GameObject {
 
 
     }
-    //draw meathod allows player to draw itself
-    public void draw(SpriteBatch batch) {
-        batch.draw(playerTexture, x, y);
-    }
     //deletes player texture when game closes to save memory
     public void dispose() {
         playerTexture.dispose();
@@ -60,7 +63,6 @@ public class Player extends GameObject {
 
     }
 
-    @Override
     public void update(float deltaTime) {
         throw new UnsupportedOperationException("Not supported yet.");
     }
