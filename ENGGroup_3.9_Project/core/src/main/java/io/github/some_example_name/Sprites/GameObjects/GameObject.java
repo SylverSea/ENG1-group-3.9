@@ -30,6 +30,10 @@ public abstract class GameObject extends Sprite {
         this.gameViewport = gameViewport;
         this.game = game;
     }
+
+    public void resetPosition(int x, int y) {
+        this.setPosition(x, y);
+    }
     
     /** 
      * Creates a new GameObject with the specified texture and position.
