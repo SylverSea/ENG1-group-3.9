@@ -8,9 +8,6 @@ import com.badlogic.gdx.math.Vector2;
 
 public class MapItem extends GameObject {
 
-    private static final float SCALE = 1 / 64f;
-
-    private final Texture texture;
     private final String itemID;
 
     private boolean visible = true;
@@ -26,8 +23,7 @@ public class MapItem extends GameObject {
      */
     public MapItem(String itemID, Texture texture, int x, int y, Vector2 position, Game game, Viewport gameViewport) {
         super(texture, x, y, game, gameViewport);
-
-        this.texture = texture;
+        
         this.itemID = itemID;
     }
 

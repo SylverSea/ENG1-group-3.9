@@ -21,6 +21,8 @@ public abstract class GameObject extends Sprite {
      * @param height  The height of the object.
      * @param game    The game the object exists within.
      * @author Oliver Quantrill-Scott
+     * @author James Garfield
+     * @author Sky Burrows
      */
     public GameObject(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
         super(texture, x, y, width, height);
@@ -31,6 +33,13 @@ public abstract class GameObject extends Sprite {
         this.game = game;
     }
 
+    /**
+     * 
+     * @param x The x-coordinate of the object.
+     * @param y The 7-coordinate of the object.
+     * 
+     * @author Sky Burrows
+     */
     public void resetPosition(int x, int y) {
         this.setPosition(x, y);
     }

@@ -28,6 +28,14 @@ public class GdxMainGame extends Game {
     private NonWallTile tile2;
 
     @Override
+    /**    
+     * Instantiates the camera and game objects.
+     * 
+     * @author Oliver Quantrill-Scott
+     * @author Daniel Bassett
+     * @author James Garfield
+     * @author Sky Burrows
+     */
     public void create() {
         batch = new SpriteBatch();
         //initialize the camera
@@ -62,6 +70,11 @@ public class GdxMainGame extends Game {
         );
     }
 
+    /**    
+     * Renders the basic textures.
+     * 
+     * @author Oliver Quantrill-Scott
+     */
     @Override
     public void render() {
 
