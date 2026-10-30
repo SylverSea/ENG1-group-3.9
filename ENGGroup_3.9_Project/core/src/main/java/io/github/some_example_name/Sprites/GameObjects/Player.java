@@ -11,7 +11,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Player extends GameObject {
 
     public Player(Texture texture, int x, int y, int width, int height, Game game) {
-        super(texture, x, y, width, height, null); //constructer - initialises a new instance of player at specified coords using GameObject
+        super(texture, x, y, width, height, game); //constructer - initialises a new instance of player at specified coords using GameObject
     }
 
     public void Move(float deltaTime) {
@@ -19,22 +19,22 @@ public class Player extends GameObject {
         float speed = 200 * deltaTime;
 
         //W move player up
-        if (Gdx.input.isKeyPressed(Input.Keys.W)){
+        if (Gdx.input.isKeyPressed(Input.Keys.S)){
             setY(getY() + Math.round(speed));
         }
 
         //S moves player down
-        if (Gdx.input.isKeyPressed(Input.Keys.S)){
+        if (Gdx.input.isKeyPressed(Input.Keys.W)){
             setY(getY() - Math.round(speed));
         }
 
         //A moves player left
-        if (Gdx.input.isKeyPressed(Input.Keys.A)){
+        if (Gdx.input.isKeyPressed(Input.Keys.D)){
             setX(getX() - Math.round(speed));
         }
 
         //D moves player right
-        if (Gdx.input.isKeyPressed(Input.Keys.D)){
+        if (Gdx.input.isKeyPressed(Input.Keys.A)){
             setX(getX() + Math.round(speed));
         }
     }

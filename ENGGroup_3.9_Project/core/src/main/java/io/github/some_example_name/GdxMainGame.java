@@ -14,6 +14,7 @@ import com.badlogic.gdx.Input;
 import io.github.some_example_name.Pannels.Menus.PauseMenu;
 
 import io.github.some_example_name.Sprites.GameObjects.Player;
+import io.github.some_example_name.Sprites.GameObjects.Tiles.NonWallTile;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class GdxMainGame extends Game {
@@ -23,6 +24,8 @@ public class GdxMainGame extends Game {
     private boolean isPaused = false;
     private PauseMenu pauseMenu;
     private Viewport viewport = new ExtendViewport(400, 400);
+    private NonWallTile tile1;
+    private NonWallTile tile2;
 
     @Override
     public void create() {
@@ -38,6 +41,9 @@ public class GdxMainGame extends Game {
 
         //spawns in the player
         player = new Player(new Texture(Gdx.files.internal(String.format("player.png"))), 200, 200, 100, 100, this);
+
+        tile1 = new NonWallTile(new Texture(Gdx.files.internal(String.format("tile.png"))), 0, 0, 10, 50, false, this);
+        tile2 = new NonWallTile(new Texture(Gdx.files.internal(String.format("tile.png"))), 40, 40, 50, 10, false, this);
     }
 
     @Override
@@ -78,6 +84,21 @@ public class GdxMainGame extends Game {
             player.getWidth(),
             player.getHeight()
         );  
+
+        batch.draw(
+            tile1.getTexture(),
+            tile1.getX(),
+            tile1.getY(),
+            tile1.getWidth(),
+            tile1.getHeight()
+        );
+        batch.draw(
+            tile2.getTexture(),
+            tile2.getX(),
+            tile2.getY(),
+            tile2.getWidth(),
+            tile2.getHeight()
+        );
 
         if (isPaused) {
             pauseMenu.draw(); // Draw the pause menu when the game is paused

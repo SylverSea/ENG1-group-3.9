@@ -19,8 +19,9 @@ public class NonWallTile extends Tile {
      * 
      * @author Sky Burrows
      */
-    public NonWallTile(Texture texture, int x, int y, Viewport gameViewport, boolean checksForPlayer, Game game) {
-        super(texture, x, y, gameViewport, game);
+    public NonWallTile(Texture texture, int x, int y, int width, int height, boolean checksForPlayer, Game game) {
+        super(texture, x, y, width, height, game);
+
         this.checksForPlayer = checksForPlayer;
     }
 

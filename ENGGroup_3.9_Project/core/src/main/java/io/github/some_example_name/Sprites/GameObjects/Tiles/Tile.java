@@ -10,11 +10,7 @@ public class Tile extends GameObject {
 
     private static final float SCALE = 1 / 32f;
 
-    private final Viewport gameViewport; 
-
     protected final Texture texture;
-    protected final int xCoord;
-    protected final int yCoord;
     protected boolean visible = true;
 
     /**
@@ -28,22 +24,13 @@ public class Tile extends GameObject {
      * 
      * @author Sky Burrows
      */
-    public Tile(Texture texture, int x, int y, Viewport gameViewport, Game game) {
-        super(texture, x, y, game);
-
-        xCoord = x;
-        yCoord = y;
+    public Tile(Texture texture, int x, int y, int width, int height, Game game) {
+        super(texture, x, y, width, height, game);
+        
         this.texture = texture;
-        this.gameViewport = gameViewport;
     }
 
     //getters and setters for the basic class info
-    public float getX() {
-        return xCoord;
-    }
-    public float getY() {
-        return yCoord;
-    }
     public boolean isVisible() {
         return visible;
     }
