@@ -37,11 +37,17 @@ public abstract class GameObject extends Sprite {
         this(texture, x, y, texture.getWidth(), texture.getHeight(), game);
     }
 
-    public void dispose() {
-        getTexture().dispose();
+    /**
+     * Returns the vector of the bottom centre of the object.
+     * @return the vector of the bottom centre of the object.
+     * @author Oliver Quantrill-Scott
+     */
+    public Vector2 getPosition() {
+        return new Vector2(getX() + getWidth() / 2, getY()); 
     }
 
-    /**
+
+    /*
      * Draws the GameObject on the screen, adjusting for the camera position.
      *
      * @param batch          The batch used for drawing.
@@ -57,4 +63,8 @@ public abstract class GameObject extends Sprite {
         batch.draw(this.getTexture(), trueVertices, 0, SPRITE_SIZE);
     }
     public abstract void update(float deltaTime);
+
+    public void dispose() {
+        getTexture().dispose();
+    }
 }
