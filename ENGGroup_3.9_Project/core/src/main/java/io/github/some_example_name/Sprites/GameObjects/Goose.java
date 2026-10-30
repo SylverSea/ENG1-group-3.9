@@ -2,6 +2,7 @@ package io.github.some_example_name.Sprites.GameObjects;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Goose extends GameObject {
     public static final float RETREAT_TIME = 5f;
@@ -23,8 +24,8 @@ public class Goose extends GameObject {
      * @param game    The game the goose exists within.
      * @author Oliver Quantrill-Scott
      */
-    public Goose(Texture texture, int x, int y, int width, int height, Player player, Game game) {
-        super(texture, x, y, width, height, game);
+    public Goose(Texture texture, int x, int y, int width, int height, Player player, Game game, Viewport gameViewport) {
+        super(texture, x, y, width, height, game, gameViewport);
         this.player = player;
     }
 

@@ -4,10 +4,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class GameObject extends Sprite {
     protected static final int SPRITE_SIZE = 20;
     protected final Game game;
+    protected final Viewport gameViewport;
 
     /**
      * Creates a new GameObject with the specified texture and position.
@@ -20,8 +22,12 @@ public abstract class GameObject extends Sprite {
      * @param game    The game the object exists within.
      * @author Oliver Quantrill-Scott
      */
-    public GameObject(Texture texture, int x, int y, int width, int height, Game game) {
+    public GameObject(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
         super(texture, x, y, width, height);
+
+        this.setPosition(x, y);
+
+        this.gameViewport = gameViewport;
         this.game = game;
     }
     
@@ -33,8 +39,8 @@ public abstract class GameObject extends Sprite {
      * @param y       The y-coordinate of the object.
      * @author Oliver Quantrill-Scott
      */
-    public GameObject(Texture texture, int x, int y, Game game) {
-        this(texture, x, y, texture.getWidth(), texture.getHeight(), game);
+    public GameObject(Texture texture, int x, int y, Game game, Viewport gameViewport) {
+        this(texture, x, y, texture.getWidth(), texture.getHeight(), game, gameViewport);
     }
 
     /**

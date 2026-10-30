@@ -11,12 +11,9 @@ public class MapItem extends GameObject {
     private static final float SCALE = 1 / 64f;
 
     private final Texture texture;
-    private final Viewport gameViewport; 
     private final String itemID;
 
     private boolean visible = true;
-    private int xCoord;
-    private int yCoord;
 
     /**
      * Constructor for Tile, with the most detail that can be added.
@@ -27,29 +24,14 @@ public class MapItem extends GameObject {
      * @param gameViewport - The game's viewport.
      * @param position     - The MapItem's position
      */
-    public MapItem(String itemID, Texture texture, int x, int y, Viewport gameViewport, Vector2 position, Game game) {
-        super(texture, x, y, game);
+    public MapItem(String itemID, Texture texture, int x, int y, Vector2 position, Game game, Viewport gameViewport) {
+        super(texture, x, y, game, gameViewport);
 
         this.texture = texture;
-        this.gameViewport = gameViewport;
-        xCoord = x;
-        yCoord = y;
         this.itemID = itemID;
     }
 
     //Getters and setters
-    public void setX(int x) {
-        xCoord = x;
-    }
-    public int getX(int x) {
-        return xCoord;
-    }
-    public void setY(int y) {
-        yCoord = y;
-    }
-    public int getY(int y) {
-        return yCoord;
-    }
     public boolean isVisible() {
         return visible;
     }
@@ -77,8 +59,8 @@ public class MapItem extends GameObject {
     public void drop(int x, int y) {
         setVisible();
 
-        xCoord = x;
-        yCoord = y;
+        setX(x);
+        setY(y);
     }
 	@Override
 	public void update(float deltaTime) {

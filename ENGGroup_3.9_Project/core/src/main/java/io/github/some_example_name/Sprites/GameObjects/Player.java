@@ -7,11 +7,16 @@ import com.badlogic.gdx.Input;
 //allows player to be rendered
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Player extends GameObject {
 
-    public Player(Texture texture, int x, int y, int width, int height, Game game) {
-        super(texture, x, y, width, height, game); //constructer - initialises a new instance of player at specified coords using GameObject
+    private final Viewport gameViewport;
+
+    public Player(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
+        super(texture, x, y, width, height, game, gameViewport); //constructer - initialises a new instance of player at specified coords using GameObject
+
+        this.gameViewport = gameViewport;
     }
 
     public void Move(float deltaTime) {

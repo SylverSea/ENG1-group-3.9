@@ -24,8 +24,8 @@ public class Tile extends GameObject {
      * 
      * @author Sky Burrows
      */
-    public Tile(Texture texture, int x, int y, int width, int height, Game game) {
-        super(texture, x, y, width, height, game);
+    public Tile(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
+        super(texture, x, y, width, height, game, gameViewport);
         
         this.texture = texture;
     }

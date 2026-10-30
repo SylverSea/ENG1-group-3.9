@@ -18,8 +18,8 @@ public class WallTile extends Tile {
      * 
      * @author Sky Burrows
      */
-    public WallTile(Texture texture, int x, int y, int width, int height, Game game) {
-        super(texture, x, y, width, height, game);
+    public WallTile(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
+        super(texture, x, y, width, height, game, gameViewport);
     }
 
     /**    

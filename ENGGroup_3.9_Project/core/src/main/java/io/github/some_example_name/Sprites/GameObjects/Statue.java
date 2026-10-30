@@ -2,11 +2,12 @@ package io.github.some_example_name.Sprites.GameObjects;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Statue extends GameObject {
 
-    public Statue(Texture texture, int x, int y, int width, int height, Game game) {
-        super(texture, x, y, width, height, game);
+    public Statue(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
+        super(texture, x, y, width, height, game, gameViewport);
     }
 
     @Override

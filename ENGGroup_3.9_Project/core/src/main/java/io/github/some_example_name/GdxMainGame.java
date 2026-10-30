@@ -23,7 +23,7 @@ public class GdxMainGame extends Game {
     private Player player;
     private boolean isPaused = false;
     private PauseMenu pauseMenu;
-    private Viewport viewport = new ExtendViewport(400, 400);
+    private Viewport gameViewport = new ExtendViewport(400, 400);
     private NonWallTile tile1;
     private NonWallTile tile2;
 
@@ -40,10 +40,26 @@ public class GdxMainGame extends Game {
         pauseMenu = new PauseMenu(batch, camera);
 
         //spawns in the player
-        player = new Player(new Texture(Gdx.files.internal(String.format("player.png"))), 200, 200, 100, 100, this);
+        player = new Player(
+            new Texture(Gdx.files.internal(String.format("player.png"))),
+            0, 40,
+            50, 40,
+            this, gameViewport
+        );
 
-        tile1 = new NonWallTile(new Texture(Gdx.files.internal(String.format("tile.png"))), 0, 0, 10, 50, false, this);
-        tile2 = new NonWallTile(new Texture(Gdx.files.internal(String.format("tile.png"))), 40, 40, 50, 10, false, this);
+        tile1 = new NonWallTile(
+            new Texture(Gdx.files.internal(String.format("tile.png"))),
+            0, 0,
+            50, 40,
+            false,
+            this, gameViewport);
+        tile2 = new NonWallTile(
+            new Texture(Gdx.files.internal(String.format("tile.png"))),
+            50, 0,
+            50, 40,
+            false,
+            this, gameViewport
+        );
     }
 
     @Override
