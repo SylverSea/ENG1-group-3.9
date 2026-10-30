@@ -6,18 +6,18 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Vector2;
 
 public abstract class GameObject extends Sprite {
-    protected static final int SPRITE_SIZE = 20; // Assuming a fixed sprite size for simplicity
+    protected static final int SPRITE_SIZE = 20;
     protected final Game game;
 
     /**
      * Creates a new GameObject with the specified texture and position.
      *
-     * @param texture The texture for the sprite.
-     * @param x       The x-coordinate of the sprite.
-     * @param y       The y-coordinate of the sprite.
-     * @param width   The width of the sprite.
-     * @param height  The height of the sprite.
-     * @param position The position of the sprite.
+     * @param texture The texture for the object.
+     * @param x       The x-coordinate of the object.
+     * @param y       The y-coordinate of the object.
+     * @param width   The width of the object.
+     * @param height  The height of the object.
+     * @param game    The game the object exists within.
      * @author Oliver Quantrill-Scott
      */
     public GameObject(Texture texture, int x, int y, int width, int height, Game game) {
@@ -25,12 +25,12 @@ public abstract class GameObject extends Sprite {
         this.game = game;
     }
     
-     /* 
+    /** 
      * Creates a new GameObject with the specified texture and position.
      * 
-     * @param texture The texture for the sprite.
-     * @param x       The x-coordinate of the sprite.
-     * @param y       The y-coordinate of the sprite.
+     * @param texture The texture for the object.
+     * @param x       The x-coordinate of the object.
+     * @param y       The y-coordinate of the object.
      * @author Oliver Quantrill-Scott
      */
     public GameObject(Texture texture, int x, int y, Game game) {
@@ -39,6 +39,7 @@ public abstract class GameObject extends Sprite {
 
     /**
      * Returns the vector of the bottom centre of the object.
+     * 
      * @return the vector of the bottom centre of the object.
      * @author Oliver Quantrill-Scott
      */
@@ -46,8 +47,7 @@ public abstract class GameObject extends Sprite {
         return new Vector2(getX() + getWidth() / 2, getY()); 
     }
 
-
-    /*
+    /**
      * Draws the GameObject on the screen, adjusting for the camera position.
      *
      * @param batch          The batch used for drawing.
@@ -62,8 +62,20 @@ public abstract class GameObject extends Sprite {
         }
         batch.draw(this.getTexture(), trueVertices, 0, SPRITE_SIZE);
     }
+
+    /**
+     * Updates the object
+     * 
+     * @param deltaTime the time between frames
+     * @author Oliver Quantrill-Scott
+     */
     public abstract void update(float deltaTime);
 
+    /**
+     * Disposes the object.
+     * 
+     * @author Oliver Quantrill-Scott
+     */
     public void dispose() {
         getTexture().dispose();
     }
