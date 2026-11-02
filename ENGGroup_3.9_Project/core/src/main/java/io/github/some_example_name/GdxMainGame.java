@@ -57,7 +57,7 @@ public class GdxMainGame extends Game {
         player = new Player(
             new Texture(Gdx.files.internal(String.format("player.png"))),
             0, 40,
-            50, 40,
+            32, 64,
             this, gameViewport
         );
         gameObjects.add(player); // Add player to the list of game objects
@@ -81,13 +81,13 @@ public class GdxMainGame extends Game {
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("tile.png"))),
             0, 0,
-            50, 40,
+            40, 40,
             false,
             this, gameViewport));
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("tile.png"))),
-            50, 0,
-            50, 40,
+            40, 0,
+            40, 40,
             false,
             this, gameViewport
         ));

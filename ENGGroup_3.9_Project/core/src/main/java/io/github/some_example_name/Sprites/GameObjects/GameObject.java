@@ -7,7 +7,6 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public abstract class GameObject extends Sprite {
-    protected static final int SPRITE_SIZE = 20;
     protected final Game game;
     protected final Viewport gameViewport;
 
