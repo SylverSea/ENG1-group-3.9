@@ -1,31 +1,37 @@
 package io.github.some_example_name;
 
-import com.badlogic.gdx.ApplicationAdapter;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
-import io.github.some_example_name.Pannels.Menus.PauseMenu;
 
+import io.github.some_example_name.Pannels.Menus.PauseMenu;
+import io.github.some_example_name.Sprites.GameObjects.GameObject;
+import io.github.some_example_name.Sprites.GameObjects.Goose;
 import io.github.some_example_name.Sprites.GameObjects.Player;
 import io.github.some_example_name.Sprites.GameObjects.Tiles.NonWallTile;
+import io.github.some_example_name.Sprites.GameObjects.Tiles.Tile;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class GdxMainGame extends Game {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private Player player;
+    private ArrayList<NonWallTile> tiles = new ArrayList<>();
+    private ArrayList<Goose> geese = new ArrayList<>();
+    private ArrayList<GameObject> gameObjects = new ArrayList<>();
     private boolean isPaused = false;
     private PauseMenu pauseMenu;
     private Viewport gameViewport = new ExtendViewport(400, 400);
-    private NonWallTile tile1;
-    private NonWallTile tile2;
 
     @Override
     /**    
@@ -54,20 +60,37 @@ public class GdxMainGame extends Game {
             50, 40,
             this, gameViewport
         );
+        gameObjects.add(player); // Add player to the list of game objects
 
-        tile1 = new NonWallTile(
+        //spawns in the geese
+        geese.add(new Goose(
+            new Texture(Gdx.files.internal(String.format("goose.png"))),
+            100, 100,
+            32, 32,
+            player,
+            this, gameViewport));
+        geese.add(new Goose(
+            new Texture(Gdx.files.internal(String.format("goose.png"))),
+            200, 150,
+            32, 32,
+            player,
+            this, gameViewport));
+        gameObjects.addAll(geese); // Add geese to the list of game objects
+
+        //spawns in the tiles
+        tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("tile.png"))),
             0, 0,
             50, 40,
             false,
-            this, gameViewport);
-        tile2 = new NonWallTile(
+            this, gameViewport));
+        tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("tile.png"))),
             50, 0,
             50, 40,
             false,
             this, gameViewport
-        );
+        ));
     }
 
     /**    
@@ -88,10 +111,8 @@ public class GdxMainGame extends Game {
             player.update(deltaTime); // Update player movement only when the game is not paused
         }
 
-        //locks the camera onto the players cenral coordinates so that the camera is always over the player
-        camera.position.set(player.getX() + player.getWidth() / 2f,
-        player.getY() + player.getHeight() / 2f,
-        0);
+        //Set camera position to player's position (adjusting for difference between Vector2 and Vector3)
+        camera.position.set(player.getPosition().x / 2, player.getPosition().y / 2, 0);
         camera.update();                                                  
 
         //add the camera to the batch projection matrix
@@ -103,31 +124,28 @@ public class GdxMainGame extends Game {
 
         batch.begin();//starts rendering from here
 
-        //all drawing code needs to go in here
+
+        for (Tile tile : tiles) {
+            tile.draw(batch, new Vector2(camera.position.x, camera.position.y));
+        }
+
+        //Bubble sorts the game objects based on their y-coordinate
+        int n = gameObjects.size();
+        for (int i = 0; i < n - 1; i++) {
+            for (int j = 0; j < n - i - 1; j++) {
+                if (gameObjects.get(j).getY() < gameObjects.get(j + 1).getY()) {
+                    // Swap gameObjects[j] and gameObjects[j + 1]
+                    GameObject temp = gameObjects.get(j);
+                    gameObjects.set(j, gameObjects.get(j + 1));
+                    gameObjects.set(j + 1, temp);
+                }
+            }
+        }
 
         //draws the player using batch.draw instead of player.draw(batch) which seems to work better
-        batch.draw(
-            player.getTexture(),
-            player.getX(),
-            player.getY(),
-            player.getWidth(),
-            player.getHeight()
-        );  
-
-        batch.draw(
-            tile1.getTexture(),
-            tile1.getX(),
-            tile1.getY(),
-            tile1.getWidth(),
-            tile1.getHeight()
-        );
-        batch.draw(
-            tile2.getTexture(),
-            tile2.getX(),
-            tile2.getY(),
-            tile2.getWidth(),
-            tile2.getHeight()
-        );
+        for (GameObject gameObject : gameObjects) {
+            gameObject.draw(batch, new Vector2(camera.position.x, camera.position.y));
+        }
 
         if (isPaused) {
             pauseMenu.draw(); // Draw the pause menu when the game is paused

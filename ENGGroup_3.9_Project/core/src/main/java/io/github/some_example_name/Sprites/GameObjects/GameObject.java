@@ -36,7 +36,7 @@ public abstract class GameObject extends Sprite {
     /**
      * 
      * @param x The x-coordinate of the object.
-     * @param y The 7-coordinate of the object.
+     * @param y The y-coordinate of the object.
      * 
      * @author Sky Burrows
      */
@@ -74,12 +74,7 @@ public abstract class GameObject extends Sprite {
      * @author Oliver Quantrill-Scott
      */
     public void draw(Batch batch, Vector2 cameraPosition) {
-        float[] trueVertices = getVertices();
-        for (int i = 0; i < trueVertices.length; i += 2) {
-            trueVertices[i] -= cameraPosition.x;
-            trueVertices[i + 1] -= cameraPosition.y;
-        }
-        batch.draw(this.getTexture(), trueVertices, 0, SPRITE_SIZE);
+        batch.draw(this.getTexture(), getX() - cameraPosition.x, getY() - cameraPosition.y, getWidth(), getHeight());
     }
 
     /**
