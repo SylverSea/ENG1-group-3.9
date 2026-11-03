@@ -12,15 +12,30 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 public class Player extends GameObject {
 
     private final Viewport gameViewport;
+    /**
+     * Creates a new player with specified texture and position.
+     * 
+     * @param texture The texture for the player.
+     * @param x       The x-coordinate of the player.
+     * @param y       The y-coordinate of the player.
+     * @param width   The width of the player.
+     * @param height  The height of the player.
+     * @param game    The game the player exists within.
+     * @author James Garfield
+     */
 
     public Player(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
         super(texture, x, y, width, height, game, gameViewport); //constructer - initialises a new instance of player at specified coords using GameObject
 
         this.gameViewport = gameViewport;
     }
-
+    /**
+     * 
+     * @param deltaTime independent time from libgdx
+     * @author James Garfield
+     */
     public void Move(float deltaTime) {
-        //calculate speed from delta time which makes it independent of frame rate (so no movement lag, yay)
+        //calculate speed from delta time which makes it independent of frame rate (so no movement lag)
         float speed = 200 * deltaTime;
 
         //W move player up

@@ -97,6 +97,7 @@ public class GdxMainGame extends Game {
      * Renders the basic textures.
      * 
      * @author Oliver Quantrill-Scott
+     * @author James Garfield
      */
     @Override
     public void render() {
