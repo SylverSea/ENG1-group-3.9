@@ -110,6 +110,10 @@ public class GdxMainGame extends Game {
         
         if (!isPaused) {
             player.update(deltaTime); // Update player movement only when the game is not paused
+            
+            for (Goose goose : geese) {
+                goose.update(deltaTime); // Update each goose's behavior
+            }
         }
 
         //Set camera position to player's position (adjusting for difference between Vector2 and Vector3)

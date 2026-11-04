@@ -1,16 +1,24 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
+import java.util.Random;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Goose extends GameObject {
     public static final float RETREAT_TIME = 5f;
-    public static final float ACTIVE_RANGE = 10f;
-    public static final float ATTACK_RANGE = 1f;
+    public static final float ACTIVE_RANGE = 100f;
+    public static final float ATTACK_RANGE = 5f;
+    public static final float SPEED = 100f;
+    public static final float RANDOMNESS_FACTOR = 1/64f;
 
     private float retreatTime = 0f;
     private final Player player;
+
+    private Vector2 direction = new Vector2(0, 0);
+    private final Random random = new Random();
 
     /**
      * Creates a new Goose with specified texture and position.
@@ -41,18 +49,36 @@ public class Goose extends GameObject {
 
         if(retreatTime > 0f) {
             retreatTime -= deltaTime;
-            retreat();
+            retreat(deltaTime);
         } else if (relativeDistance <= ATTACK_RANGE) {
             attack();
         } else if (relativeDistance <= ACTIVE_RANGE) {
-            moveActive();
-        } else { movePassive(); }
+            moveActive(deltaTime);
+        } else { movePassive(deltaTime); }
+
+        setPosition(getX() + direction.x, getY() + direction.y);
+
     }
 
-    private void movePassive() {
+    /**
+     * Moves the goose in a random direction.
+     * 
+     * @param deltaTime independent time from libgdx
+     * @author Oliver Quantrill-Scott
+     */
+    private void movePassive(float deltaTime) {
+        direction = direction.add(new Vector2(random.nextFloat() - 0.5f, random.nextFloat() - 0.5f)
+                .nor().scl(SPEED * deltaTime * RANDOMNESS_FACTOR));
     }
 
-    private void moveActive() {
+    /**
+     * Moves the goose towards the player.
+     * 
+     * @param deltaTime independent time from libgdx
+     * @author Oliver Quantrill-Scott
+     */
+    private void moveActive(float deltaTime) {
+        direction = player.getPosition().sub(getPosition()).nor().scl(SPEED * deltaTime);
     }
 
     /**
@@ -66,12 +92,20 @@ public class Goose extends GameObject {
 
     /**
      * Makes the goose retreat.
+     * 
      * @author Oliver Quantrill-Scott
      */
     public void resetRetreat() {
         retreatTime = RETREAT_TIME;
     }
 
-    public void retreat() {
+    /**
+     * Moves the goose away from the player.
+     * 
+     * @param deltaTime independent time from libgdx
+     * @author Oliver Quantrill-Scott
+     */
+    public void retreat(float deltaTime) {
+        direction = getPosition().sub(player.getPosition()).nor().scl(SPEED * deltaTime);
     }
 }

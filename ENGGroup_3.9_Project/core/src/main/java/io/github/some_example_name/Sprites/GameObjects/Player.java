@@ -1,12 +1,9 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
 import com.badlogic.gdx.Game;
-//import libraries to allow detection of key inputs and should make movement speed independent of framerate (fingers crossed)
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
-//allows player to be rendered
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Player extends GameObject {
@@ -70,6 +67,7 @@ public class Player extends GameObject {
 
     }
 
+    @Override
     public void update(float deltaTime) {
         Move(deltaTime);
     }
