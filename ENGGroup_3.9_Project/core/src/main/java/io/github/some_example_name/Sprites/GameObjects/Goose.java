@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Goose extends GameObject {
     public static final float RETREAT_TIME = 5f;
-    public static final float ACTIVE_RANGE = 2aaa00f;
+    public static final float ACTIVE_RANGE = 2f;
     public static final float ATTACK_RANGE = 5f;
     public static final float SPEED = 100f;
     public static final float RANDOMNESS_FACTOR = 1/64f;
