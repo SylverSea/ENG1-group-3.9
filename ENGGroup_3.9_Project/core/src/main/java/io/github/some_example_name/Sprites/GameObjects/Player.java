@@ -8,12 +8,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Player extends GameObject {
 
-    // Player health attributes
     private int maxHealth;
     private int currentHealth;
 
     /**
-     * Creates a new player with specified texture and position.
+     * constructer - creates a new instance of player at the starting coordinates, texture and dimentions
      * 
      * @param texture The texture for the player.
      * @param x       The x-coordinate of the player.
@@ -21,23 +20,22 @@ public class Player extends GameObject {
      * @param width   The width of the player.
      * @param height  The height of the player.
      * @param game    The game the player exists within.
-     * @param maxHealth The max health of the player
+     * @param maxHealth The max health the player starts with
      * @author James Garfield
      */
 
     public Player(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport, int maxHealth) {
-        super(texture, x, y, width, height, game, gameViewport); //constructer - initialises a new instance of player at specified coords using GameObject
+        super(texture, x, y, width, height, game, gameViewport); 
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
     }
     /**
-     * moves the player
+     * moves the player using delta time which makes it independent of the frame rate so that we hopefully have no movement lag
      * 
      * @param deltaTime independent time from libgdx
      * @author James Garfield
      */
     public void Move(float deltaTime) {
-        //calculate speed from delta time which makes it independent of frame rate (so no movement lag)
         float speed = 200 * deltaTime;
 
         //W move player up
@@ -78,12 +76,12 @@ public class Player extends GameObject {
         currentHealth = Math.max(0, currentHealth - amount);
 
         if (currentHealth == 0) {
-            //need to add what happens when player "dies"
+            //I need to add what happens when player "dies" 
         }
     }
 
     /**
-     * Heals the player up to max health but not beyond
+     * Heals the player up to max health but not beyond it
      * 
      * @param amount The amount the player will be healed by
      * @author James Garfield
@@ -92,7 +90,6 @@ public class Player extends GameObject {
         currentHealth = Math.min(maxHealth, currentHealth + amount);
     }
 
-    //getters for player Health
     public int getCurrentHealth() {
         return currentHealth;
     }
