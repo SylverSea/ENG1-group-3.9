@@ -85,7 +85,7 @@ public class Goose extends GameObject {
      * @author Oliver Quantrill-Scott
      */
     private void attack() {
-        player.TakeDamage();
+        player.TakeDamage(1);
         resetRetreat();
     }
 
