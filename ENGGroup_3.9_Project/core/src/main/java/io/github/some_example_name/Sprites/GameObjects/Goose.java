@@ -9,7 +9,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Goose extends GameObject {
     public static final float RETREAT_TIME = 5f;
-    public static final float ACTIVE_RANGE = 100f;
+    public static final float ACTIVE_RANGE = 2aaa00f;
     public static final float ATTACK_RANGE = 5f;
     public static final float SPEED = 100f;
     public static final float RANDOMNESS_FACTOR = 1/64f;
@@ -49,14 +49,14 @@ public class Goose extends GameObject {
 
         if(retreatTime > 0f) {
             retreatTime -= deltaTime;
-            retreat(deltaTime);
+            retreat();
         } else if (relativeDistance <= ATTACK_RANGE) {
             attack();
         } else if (relativeDistance <= ACTIVE_RANGE) {
-            moveActive(deltaTime);
-        } else { movePassive(deltaTime); }
+            moveActive();
+        } else { movePassive(); }
 
-        setPosition(getX() + direction.x, getY() + direction.y);
+        setPosition(getX() + direction.x * SPEED * deltaTime, getY() + direction.y * SPEED * deltaTime);
 
     }
 
@@ -66,9 +66,8 @@ public class Goose extends GameObject {
      * @param deltaTime independent time from libgdx
      * @author Oliver Quantrill-Scott
      */
-    private void movePassive(float deltaTime) {
-        direction = direction.add(new Vector2(random.nextFloat() - 0.5f, random.nextFloat() - 0.5f)
-                .nor().scl(SPEED * deltaTime * RANDOMNESS_FACTOR));
+    private void movePassive() {
+        direction = direction.add(new Vector2(random.nextFloat() - 0.5f, random.nextFloat() - 0.5f).nor().scl(RANDOMNESS_FACTOR));
     }
 
     /**
@@ -77,8 +76,8 @@ public class Goose extends GameObject {
      * @param deltaTime independent time from libgdx
      * @author Oliver Quantrill-Scott
      */
-    private void moveActive(float deltaTime) {
-        direction = player.getPosition().sub(getPosition()).nor().scl(SPEED * deltaTime);
+    private void moveActive() {
+        direction = player.getPosition().sub(getPosition()).nor();
     }
 
     /**
@@ -105,7 +104,7 @@ public class Goose extends GameObject {
      * @param deltaTime independent time from libgdx
      * @author Oliver Quantrill-Scott
      */
-    public void retreat(float deltaTime) {
-        direction = getPosition().sub(player.getPosition()).nor().scl(SPEED * deltaTime);
+    public void retreat() {
+        direction = getPosition().sub(player.getPosition()).nor();
     }
 }
