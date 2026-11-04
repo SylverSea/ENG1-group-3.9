@@ -58,7 +58,7 @@ public class GdxMainGame extends Game {
             new Texture(Gdx.files.internal(String.format("player.png"))),
             0, 40,
             32, 64,
-            this, gameViewport
+            this, gameViewport, 5
         );
         gameObjects.add(player); // Add player to the list of game objects
 
