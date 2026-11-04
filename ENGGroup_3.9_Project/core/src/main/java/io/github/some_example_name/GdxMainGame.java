@@ -79,18 +79,11 @@ public class GdxMainGame extends Game {
 
         //spawns in the tiles
         tiles.add(new NonWallTile(
-            new Texture(Gdx.files.internal(String.format("tile.png"))),
-            0, 0,
-            40, 40,
+            new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
+            -500, -500,
+            1250, 1000,
             false,
             this, gameViewport));
-        tiles.add(new NonWallTile(
-            new Texture(Gdx.files.internal(String.format("tile.png"))),
-            40, 0,
-            40, 40,
-            false,
-            this, gameViewport
-        ));
     }
 
     /**    

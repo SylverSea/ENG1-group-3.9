@@ -8,8 +8,6 @@ import io.github.some_example_name.Sprites.GameObjects.GameObject;
 
 public class Tile extends GameObject {
 
-    private static final float SCALE = 1 / 32f;
-
     protected final Texture texture;
     protected boolean visible = true;
 
