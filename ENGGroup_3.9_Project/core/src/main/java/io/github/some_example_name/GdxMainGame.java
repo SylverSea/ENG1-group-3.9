@@ -58,7 +58,7 @@ public class GdxMainGame extends Game {
             new Texture(Gdx.files.internal(String.format("player.png"))),
             0, 40,
             32, 64,
-            this, gameViewport, 5
+            this, gameViewport, 0
         );
         gameObjects.add(player); // Add player to the list of game objects
 
@@ -83,7 +83,10 @@ public class GdxMainGame extends Game {
             -500, -500,
             1250, 1000,
             false,
-            this, gameViewport));
+            this, gameViewport)
+        );
+
+        pauseMenu = new PauseMenu(batch, camera);
     }
 
     /**    
