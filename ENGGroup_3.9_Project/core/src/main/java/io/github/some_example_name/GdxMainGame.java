@@ -81,7 +81,7 @@ public class GdxMainGame extends Game {
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
             -500, -500,
-            1250, 1000,
+            1000, 1000,
             false,
             this, gameViewport)
         );

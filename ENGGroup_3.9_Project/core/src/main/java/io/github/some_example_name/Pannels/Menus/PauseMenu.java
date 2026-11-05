@@ -25,7 +25,7 @@ public class PauseMenu extends Menu {
     }
 
     public void draw() {
-       //TODO: Implement the drawing for the pause menu using the batch and camera.
-       //Can't do it right now as I cant test to position the menu correctly without the game running, won't run until errors solved in other classes --> specifically the GameObject class.  
+       //mplement the drawing for the pause menu using the batch and camera.
+       //Can't do it rTODO: Iight now as I cant test to position the menu correctly without the game running, won't run until errors solved in other classes --> specifically the GameObject class.  
     }
 }
