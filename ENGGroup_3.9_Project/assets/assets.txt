@@ -1,4 +1,5 @@
 Background_TEMP.png
 goose.png
 player.png
+playerDamage.png
 tile.png

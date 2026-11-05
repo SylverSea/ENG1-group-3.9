@@ -49,7 +49,7 @@ public class GdxMainGame extends Game {
         camera.setToOrtho(false, 800, 480);
         camera.position.set(400, 240, 0);  //test code delete later, currently just spawns the camera in a starting position to be sure we could render player
         camera.update();                          //test
-        
+
         //initialize the pause menu
         pauseMenu = new PauseMenu(batch, camera);
 
@@ -81,10 +81,12 @@ public class GdxMainGame extends Game {
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
             -500, -500,
-            1000, 1000,
+            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
             false,
             this, gameViewport)
         );
+
+        System.out.println(Math.round(camera.viewportWidth/20*32));
 
         pauseMenu = new PauseMenu(batch, camera);
     }
