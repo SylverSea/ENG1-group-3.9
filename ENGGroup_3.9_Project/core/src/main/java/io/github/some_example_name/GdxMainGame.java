@@ -54,10 +54,11 @@ public class GdxMainGame extends Game {
         pauseMenu = new PauseMenu(batch, camera);
 
         //spawns in the player
+        Texture playertexture = new Texture(Gdx.files.internal(String.format("player.png")));
         player = new Player(
-            new Texture(Gdx.files.internal(String.format("player.png"))),
+            playertexture,
             0, 40,
-            32, 64,
+            30, 52,
             this, gameViewport, 0
         );
         gameObjects.add(player); // Add player to the list of game objects
@@ -81,12 +82,10 @@ public class GdxMainGame extends Game {
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
             -500, -500,
-            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
+           1000, 1000,
             false,
             this, gameViewport)
         );
-
-        System.out.println(Math.round(camera.viewportWidth/20*32));
 
         pauseMenu = new PauseMenu(batch, camera);
     }
