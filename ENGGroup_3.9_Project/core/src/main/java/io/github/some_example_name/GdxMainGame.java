@@ -17,6 +17,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import io.github.some_example_name.Pannels.Menus.PauseMenu;
 import io.github.some_example_name.Sprites.GameObjects.GameObject;
 import io.github.some_example_name.Sprites.GameObjects.Goose;
+import io.github.some_example_name.Sprites.GameObjects.MapItem;
 import io.github.some_example_name.Sprites.GameObjects.Player;
 import io.github.some_example_name.Sprites.GameObjects.Tiles.NonWallTile;
 import io.github.some_example_name.Sprites.GameObjects.Tiles.Tile;
@@ -32,6 +33,7 @@ public class GdxMainGame extends Game {
     private boolean isPaused = false;
     private PauseMenu pauseMenu;
     private Viewport gameViewport = new ExtendViewport(400, 400);
+    private MapItem bandage;
 
     @Override
     /**    
@@ -86,6 +88,12 @@ public class GdxMainGame extends Game {
             false,
             this, gameViewport)
         );
+
+        
+        gameObjects.add(new MapItem("Bandage", 50, 50, 25, 25, this, gameViewport));
+        gameObjects.add(new MapItem("Egg", 00, 00, 10, 10, this, gameViewport));
+        gameObjects.add(new MapItem("Egg", -50, -50, 10, 10, this, gameViewport));
+
 
         pauseMenu = new PauseMenu(batch, camera);
     }
