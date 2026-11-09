@@ -9,10 +9,11 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 public class Goose extends GameObject {
     public static final float RETREAT_TIME = 5f;
-    public static final float ACTIVE_RANGE = 2f;
+    public static final float ACTIVE_RANGE = 200f; 
     public static final float ATTACK_RANGE = 5f;
     public static final float SPEED = 100f;
     public static final float RANDOMNESS_FACTOR = 1/64f;
+    public static final float MAX_WANDER_SPEED = 1f; //
 
     private float retreatTime = 0f;
     private final Player player;
@@ -22,7 +23,7 @@ public class Goose extends GameObject {
 
     /**
      * Creates a new Goose with specified texture and position.
-     * 
+     *
      * @param texture The texture for the goose.
      * @param x       The x-coordinate of the goose.
      * @param y       The y-coordinate of the goose.
@@ -39,7 +40,7 @@ public class Goose extends GameObject {
 
     /**
      * Updates the goose and selects which movenment type is appropriate.
-     * 
+     *
      * @see io.github.some_example_name.Sprites.GameObjects.GameObject#update(float)
      * @author Oliver Quantrill-Scott
      */
@@ -62,17 +63,18 @@ public class Goose extends GameObject {
 
     /**
      * Moves the goose in a random direction.
-     * 
+     *
      * @param deltaTime independent time from libgdx
      * @author Oliver Quantrill-Scott
      */
     private void movePassive() {
         direction = direction.add(new Vector2(random.nextFloat() - 0.5f, random.nextFloat() - 0.5f).nor().scl(RANDOMNESS_FACTOR));
+        direction = direction.limit(MAX_WANDER_SPEED); //caps wander direction length
     }
 
     /**
      * Moves the goose towards the player.
-     * 
+     *
      * @param deltaTime independent time from libgdx
      * @author Oliver Quantrill-Scott
      */
@@ -91,7 +93,7 @@ public class Goose extends GameObject {
 
     /**
      * Makes the goose retreat.
-     * 
+     *
      * @author Oliver Quantrill-Scott
      */
     public void resetRetreat() {
@@ -100,7 +102,7 @@ public class Goose extends GameObject {
 
     /**
      * Moves the goose away from the player.
-     * 
+     *
      * @param deltaTime independent time from libgdx
      * @author Oliver Quantrill-Scott
      */

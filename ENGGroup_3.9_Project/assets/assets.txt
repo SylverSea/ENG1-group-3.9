@@ -1,5 +1,9 @@
 Background_TEMP.png
+Bandage.png
+Egg.png
 goose.png
+nest.png
 player.png
 playerDamage.png
+statue.png
 tile.png

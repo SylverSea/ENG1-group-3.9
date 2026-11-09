@@ -1,9 +1,9 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
-import com.badlogic.gdx.math.Vector2;
 
 
 public class MapItem extends GameObject {
@@ -21,10 +21,34 @@ public class MapItem extends GameObject {
      * @param gameViewport - The game's viewport.
      * @param position     - The MapItem's position
      */
-    public MapItem(String itemID, Texture texture, int x, int y, Vector2 position, Game game, Viewport gameViewport) {
-        super(texture, x, y, game, gameViewport);
-        
+    public MapItem(String itemID, int x, int y, Game game, Viewport gameViewport) throws IllegalArgumentException {
+        super(new Texture(Gdx.files.internal(String.format(itemID+".png"))), x, y, game, gameViewport);
+
         this.itemID = itemID;
+
+        String[] knownIDs = {"Bandage", "Egg"};
+        boolean containsValidID = false;
+
+        for(String ID : knownIDs) {
+            if (ID == itemID) {containsValidID = true;}
+        }
+
+        if (!containsValidID) {throw new IllegalArgumentException(itemID+" is not a recognised item ID");}
+    }
+
+    public MapItem(String itemID, int x, int y, int width, int height, Game game, Viewport gameViewport) throws IllegalArgumentException {
+        super(new Texture(Gdx.files.internal(String.format(itemID+".png"))), x, y, width, height, game, gameViewport);
+
+        this.itemID = itemID;
+
+        String[] knownIDs = {"Bandage", "Egg"};
+        boolean containsValidID = false;
+
+        for(String ID : knownIDs) {
+            if (ID == itemID) {containsValidID = true;}
+        }
+
+        if (!containsValidID) {throw new IllegalArgumentException(itemID+" is not a recognised item ID");}
     }
 
     //Getters and setters
