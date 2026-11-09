@@ -9,13 +9,14 @@ import io.github.some_example_name.GdxMainGame;
 /**
  *base for anything interacted with by E keystroke
  * 
- * @author Erikas
+ * @author Erikas Jovaisa
  */
 public abstract class InteractableObject extends GameObject {
 
     public static final int MAX_USES = 3;
 
-    private int useCount = 0;
+    /** protected (not private) so a subclass like Nest can override interact() and still track its own use count */
+    protected int useCount = 0;
 
     /**
      *constructor with most detail that can be added
@@ -27,7 +28,7 @@ public abstract class InteractableObject extends GameObject {
      * @param height
      * @param game
      * @param gameViewport
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public InteractableObject(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
         super(texture, x, y, width, height, game, gameViewport);
@@ -38,7 +39,7 @@ public abstract class InteractableObject extends GameObject {
      * used for statue and nest
      * 
      * @return
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public boolean canInteract() {
         return useCount < MAX_USES;
@@ -49,7 +50,7 @@ public abstract class InteractableObject extends GameObject {
      * first 2 uses give points 3rd spawns geese
      * 
      * @param player
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public void interact(Player player) {
         if (!canInteract()) return;
@@ -70,7 +71,7 @@ public abstract class InteractableObject extends GameObject {
      * says what a normal use does
      * 
      * @param player
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     protected abstract void onUse(Player player);
 
@@ -79,7 +80,7 @@ public abstract class InteractableObject extends GameObject {
      * might want to add more points for second use
      * 
      * @return
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     protected abstract int getPoints();
 
@@ -87,7 +88,7 @@ public abstract class InteractableObject extends GameObject {
      *update every frame
      * 
      * @param deltaTime
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     @Override
     public void update(float deltaTime) {

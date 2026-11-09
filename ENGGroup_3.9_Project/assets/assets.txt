@@ -1,9 +1,14 @@
 Background_TEMP.png
 Bandage.png
 Egg.png
+controls_legend.png
 goose.png
 nest.png
+placeholder_logo_240_120_px.png
 player.png
 playerDamage.png
+player_walk_cardinal.png
+player_walk_diagonal.png
+start_background.jpg
 statue.png
 tile.png

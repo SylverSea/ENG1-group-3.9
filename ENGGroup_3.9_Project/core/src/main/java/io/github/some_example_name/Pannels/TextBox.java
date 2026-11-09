@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**small fixed piece of hud text
  *
- * @author Erikas
+ * @author Erikas Jovaisa
  */
 public class TextBox extends Pannel {
 
@@ -19,7 +19,7 @@ public class TextBox extends Pannel {
      * @param text
      * @param x
      * @param y
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public TextBox(String text, float x, float y) {
         this.text = text;
@@ -30,7 +30,7 @@ public class TextBox extends Pannel {
     /** draws the text box
      *
      * @param batch
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public void draw(SpriteBatch batch) {
         font.draw(batch, text, x, y);

@@ -19,7 +19,7 @@ public class Inventory extends Menu {
      * 
      * @param itemID
      * @param amount
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public void addItem(String itemID, int amount) {
         if (items.containsKey(itemID)) {
@@ -34,7 +34,7 @@ public class Inventory extends Menu {
      * 
      * @param itemID
      * @return
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public boolean useItem(String itemID) {
         InventoryItem item = items.get(itemID);
@@ -47,7 +47,7 @@ public class Inventory extends Menu {
      * 
      * @param itemID
      * @return
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     public int getQuantity(String itemID) {
         InventoryItem item = items.get(itemID);

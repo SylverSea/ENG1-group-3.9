@@ -16,8 +16,10 @@ import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import io.github.some_example_name.Pannels.Hotbar;
 import io.github.some_example_name.Pannels.TextBox;
 import io.github.some_example_name.Pannels.Menus.PauseMenu;
+import io.github.some_example_name.Pannels.Menus.StartMenu;
 import io.github.some_example_name.Sprites.GameObjects.GameObject;
 import io.github.some_example_name.Sprites.GameObjects.Goose;
 import io.github.some_example_name.Sprites.GameObjects.InteractableObject;
@@ -48,6 +50,8 @@ public class GdxMainGame extends Game {
     /** value for wether interact prompt appears */
     private boolean showPrompt = false;
     private PauseMenu pauseMenu;
+    /** declare start menu title screen*/
+    private StartMenu startMenu;
     /** textbox dependant on if interact should pop up */
     private TextBox interactPrompt;
     private Viewport gameViewport = new ExtendViewport(400, 400);
@@ -65,6 +69,9 @@ public class GdxMainGame extends Game {
     private OrthographicCamera hudCamera = new OrthographicCamera();
     /** font cant be built until create runs */
     private BitmapFont font;
+
+    /** declares hotbar field */
+    private Hotbar hotbar;
 
     /**
      * Instantiates the camera and game objects.
@@ -92,7 +99,7 @@ public class GdxMainGame extends Game {
         player = new Player(
             playertexture,
             0, 40,
-            32, 64,
+            40, 80, //made dude bit bigger
             this, gameViewport, 100 //creates players health (100 for testing unsure on nr)
         );
         gameObjects.add(player); // Add player to the list of game objects
@@ -124,7 +131,9 @@ public class GdxMainGame extends Game {
         //matches hudcamera viewport to sceen pixel size so hud stays a fixed size regardless of camera.
         hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
 
-        /** creates the statue and nest and registers
+        hotbar = new Hotbar(batch, font); //constructs hotbar passing shared components
+
+        /** creates the statue and nest and registers them
          * 
          * @author Erikas Jovaisa 
          */
@@ -133,23 +142,27 @@ public class GdxMainGame extends Game {
             584, 473, //statue pos
             34, 72, //statue size
             this, gameViewport));
+        //
         interactables.add(new Nest(
             new Texture(Gdx.files.internal(String.format("nest.png"))),
             -449, 626, //nest pos
             102, 102, //statue size
             this, gameViewport));
-        gameObjects.addAll(interactables); 
+        gameObjects.addAll(interactables); //add statue and nest to drawing list
 
-        //items position and size defined
-        pickups.add(new MapItem("Bandage", 50, 50, 25, 25, this, gameViewport));
-        pickups.add(new MapItem("Egg", 0, 0, 10, 10, this, gameViewport));
-        pickups.add(new MapItem("Egg", -50, -50, 10, 10, this, gameViewport));
+
+        //spawn item position and size defined
+        pickups.add(new MapItem("Bandage", 50, 50, 34, 34, this, gameViewport)); 
+        pickups.add(new MapItem("Egg", 0, 0, 18, 18, this, gameViewport)); 
+        pickups.add(new MapItem("Egg", -50, -50, 18, 18, this, gameViewport)); 
+        pickups.add(new MapItem("Egg", -100, 50, 18, 18, this, gameViewport)); 
         gameObjects.addAll(pickups); //items spawned
 
 
         //rebuilds pause menu against hud camera
 
         pauseMenu = new PauseMenu(batch, hudCamera);
+        startMenu = new StartMenu(batch, hudCamera); 
 
         //creates interact text box
         interactPrompt = new TextBox("Press E to interact", Gdx.graphics.getWidth() / 2f - 60, 130);
@@ -166,14 +179,19 @@ public class GdxMainGame extends Game {
 
         float deltaTime = Gdx.graphics.getDeltaTime();
 
+        //checks for click on start button, if clicked game unpauses
+        if (!gameStarted && startMenu.isStartButtonClicked()) {
+            gameStarted = true;
+            isPaused = false;
+        }
+
         if (Gdx.input.isKeyJustPressed(Input.Keys.ESCAPE) && gameStarted && !gameOver) {
             isPaused = !isPaused; // Toggle pause state when escape key is pressed, but only mid-game
         }
 
-            //unpauses game when button pressed
-        if (isPaused && !gameOver && Gdx.input.justTouched() && pauseMenu.isPlayButtonClicked()) {
+            //unpauses when resume clicked
+        if (gameStarted && isPaused && !gameOver && Gdx.input.justTouched() && pauseMenu.isPlayButtonClicked()) {
             isPaused = false;
-            gameStarted = true;
         }
 
         if (!isPaused) {
@@ -189,6 +207,7 @@ public class GdxMainGame extends Game {
             }
 
             boolean interactPressed = Gdx.input.isKeyJustPressed(Input.Keys.E);
+            boolean eggKeyPressed = Gdx.input.isKeyJustPressed(Input.Keys.NUM_2);
 
             //scan interactables for nearest object
             InteractableObject nearest = null;
@@ -204,9 +223,15 @@ public class GdxMainGame extends Game {
             showPrompt = nearest != null;
             //sets interact prompt based on nearest object
             if (nearest != null) {
-                interactPrompt.setText(nearest instanceof Nest ? "Use egg to interact" : "Press E to interact");
+                interactPrompt.setText(nearest instanceof Nest ? "Press 2 (egg) to interact" : "Press E to interact");
             }
-            if (nearest != null && interactPressed) {
+
+            //nest interacet with by using ergg item slot over e others still use e
+            if (nearest instanceof Nest) {
+                if (eggKeyPressed) {
+                    nearest.interact(player);
+                }
+            } else if (nearest != null && interactPressed) {
                 nearest.interact(player);
             }
 
@@ -214,7 +239,7 @@ public class GdxMainGame extends Game {
                 checkItemPickups(); //calls item pickup on e press
             }
 
-            //key binding for inv -adding
+            //key bindings for inventory slots - 1 uses a bandage, 2 interacts with a nearby nest (handled above)
             if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
                 player.UseItem("bandage");
             }
@@ -262,21 +287,27 @@ public class GdxMainGame extends Game {
         batch.setProjectionMatrix(hudCamera.combined);
         batch.begin();
 
-        font.draw(batch, "Time: " + (int) timeRemaining, 10, Gdx.graphics.getHeight() - 10);
-        font.draw(batch, "Health: " + player.getCurrentHealth(), 10, Gdx.graphics.getHeight() - 30);
-        font.draw(batch, "Score: " + score, 10, Gdx.graphics.getHeight() - 50);
-        font.draw(batch, "Events: " + eventsTriggered, 10, Gdx.graphics.getHeight() - 70);
+        //wraps hud in game started 
+        if (gameStarted) {
+            font.draw(batch, "Time: " + (int) timeRemaining, 10, Gdx.graphics.getHeight() - 10);
+            font.draw(batch, "Health: " + player.getCurrentHealth(), 10, Gdx.graphics.getHeight() - 30);
+            font.draw(batch, "Score: " + score, 10, Gdx.graphics.getHeight() - 50);
+            font.draw(batch, "Events: " + eventsTriggered, 10, Gdx.graphics.getHeight() - 70);
+            hotbar.draw(player.getInventory()); //draw hotbar each frame
 
-        if (showPrompt) {
-            interactPrompt.draw(batch);
+            if (showPrompt) {
+                interactPrompt.draw(batch);
+            }
+
+            if (gameOver) {
+                font.draw(batch, "GAME OVER - Score: " + score, Gdx.graphics.getWidth() / 2f - 80, Gdx.graphics.getHeight() / 2f);
+            }
         }
 
-        if (gameOver) {
-            font.draw(batch, "GAME OVER - Score: " + score, Gdx.graphics.getWidth() / 2f - 80, Gdx.graphics.getHeight() / 2f);
-        }
-
-        if (isPaused) {
-            pauseMenu.draw(); //draws pause menu if paused
+        if (!gameStarted) {
+            startMenu.draw(); //title screen before the game has started
+        } else if (isPaused) {
+            pauseMenu.draw(); //draws pause menu if paused mid-game
         }
 
         batch.end();

@@ -4,6 +4,8 @@ import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
+import io.github.some_example_name.GdxMainGame;
+
 public class Nest extends InteractableObject {
 
     public static final int POINTS = 10;
@@ -13,24 +15,49 @@ public class Nest extends InteractableObject {
     }
 
     /**
-     *gives player egg when nest is used
-     
+     *consumes one egg from the player's inventory when the nest is used -
+     *does nothing if the player has none (same safe no-op pattern as Player.UseItem)
+     *
      * @param player
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     @Override
     protected void onUse(Player player) {
-        player.getInventory().addItem("egg", 1);
+        player.getInventory().useItem("egg");
     }
 
     /**
      * returns points awarded for using nest
      * 
      * @return
-     * @author Erikas
+     * @author Erikas Jovaisa
      */
     @Override
     protected int getPoints() {
         return POINTS;
+    }
+
+    /**
+     * overrides the base interact so the egg is still consumed on the 3rd use (the one
+     * that spawns the goose instead of giving points) - the first 2 uses behave exactly
+     * as the base class's interact()
+     *
+     * @param player
+     * @author Erikas Jovaisa
+     */
+    @Override
+    public void interact(Player player) {
+        if (!canInteract()) return;
+
+        useCount++;
+        onUse(player); //consumes an egg every use, including the 3rd
+
+        if (useCount < MAX_USES) {
+            GdxMainGame mainGame = (GdxMainGame) game;
+            mainGame.addScore(getPoints());
+            mainGame.incrementEvents();
+        } else {
+            ((GdxMainGame) game).spawnGoose(getPosition());
+        }
     }
 }
