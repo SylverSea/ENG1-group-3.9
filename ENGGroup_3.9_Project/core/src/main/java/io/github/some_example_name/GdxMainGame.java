@@ -116,16 +116,10 @@ public class GdxMainGame extends Game {
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
             -500, -500,
-           1000, 1000,
+            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
             false,
             this, gameViewport)
         );
-
-        
-        gameObjects.add(new MapItem("Bandage", 50, 50, 25, 25, this, gameViewport));
-        gameObjects.add(new MapItem("Egg", 00, 00, 10, 10, this, gameViewport));
-        gameObjects.add(new MapItem("Egg", -50, -50, 10, 10, this, gameViewport));
-
 
         //matches hudcamera viewport to sceen pixel size so hud stays a fixed size regardless of camera.
         hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
