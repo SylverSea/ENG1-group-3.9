@@ -51,6 +51,7 @@ public class GdxMainGame extends Game {
     /** textbox dependant on if interact should pop up */
     private TextBox interactPrompt;
     private Viewport gameViewport = new ExtendViewport(400, 400);
+    private MapItem bandage;
 
     /** timer value (5min) */
     private static final float ROUND_DURATION = 300f;
@@ -87,8 +88,9 @@ public class GdxMainGame extends Game {
         pauseMenu = new PauseMenu(batch, camera);
 
         //creates player and adds to gameObjects
+        Texture playertexture = new Texture(Gdx.files.internal(String.format("player.png")));
         player = new Player(
-            new Texture(Gdx.files.internal(String.format("player.png"))),
+            playertexture,
             0, 40,
             32, 64,
             this, gameViewport, 100 //creates players health (100 for testing unsure on nr)
@@ -114,12 +116,16 @@ public class GdxMainGame extends Game {
         tiles.add(new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
             -500, -500,
-            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
+           1000, 1000,
             false,
             this, gameViewport)
         );
 
-        System.out.println(Math.round(camera.viewportWidth/20*32));
+        
+        gameObjects.add(new MapItem("Bandage", 50, 50, 25, 25, this, gameViewport));
+        gameObjects.add(new MapItem("Egg", 00, 00, 10, 10, this, gameViewport));
+        gameObjects.add(new MapItem("Egg", -50, -50, 10, 10, this, gameViewport));
+
 
         //matches hudcamera viewport to sceen pixel size so hud stays a fixed size regardless of camera.
         hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
