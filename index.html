@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ENG1 Group 3.9 - Project Hub</title>
+    <style>
+        :root {
+            --primary: #1d70b8;
+            --bg: #f4f6f8;
+            --card-bg: #ffffff;
+            --text: #222222;
+        }
+        body {
+            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg);
+            color: var(--text);
+            margin: 0;
+            padding: 2rem;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        header {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 1rem;
+            margin-bottom: 2rem;
+        }
+        h1 { margin: 0; color: #111; }
+        .subtitle { color: #555; margin-top: 0.25rem; }
+        section {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            margin-bottom: 1.5rem;
+        }
+        h2 { margin-top: 0; color: var(--primary); border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
+        ul { list-style-type: none; padding-left: 0; }
+        li { margin-bottom: 0.75rem; }
+        a {
+            color: var(--primary);
+            text-decoration: none;
+            font-weight: 600;
+        }
+        a:hover { text-decoration: underline; }
+        .btn {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 0.6rem 1.2rem;
+            border-radius: 5px;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .btn:hover { background: #005a9c; text-decoration: none; }
+        .file-tag {
+            font-size: 0.8rem;
+            background: #e2e8f0;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            margin-left: 0.5rem;
+            color: #475569;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ENG1 Group 3.9</h1>
+            <p class="subtitle">Software Engineering Project Documentation & Portal</p>
+        </header>
+
+        <!-- Playable Build / Application Section -->
+        <section>
+            <h2>🎮 Project Executable / Web Build</h2>
+            <p>Access the main software deliverable and source project folder below:</p>
+            <p>
+                <!-- Update this href if your web build is inside ENGGroup_3.9_Project/index.html -->
+                <a href="ENGGroup_3.9_Project/" class="btn">Launch Web App / View Source Folder</a>
+            </p>
+        </section>
+
+        <!-- Core Documentation -->
+        <section>
+            <h2>📄 Assessment Requirements & Documents</h2>
+            <ul>
+                <li>
+                    <a href="Documentation/Requirements.pdf" target="_blank">Requirements Document</a>
+                    <span class="file-tag">PDF</span>
+                </li>
+                <li>
+                    <a href="Documentation/Risk_Assessment.pdf" target="_blank">Risk Assessment & Mitigation Document</a>
+                    <span class="file-tag">PDF</span>
+                </li>
+                <li>
+                    <a href="Documentation/Method_Selection.pdf" target="_blank">Method Selection & Planning Document</a>
+                    <span class="file-tag">PDF</span>
+                </li>
+                <li>
+                    <a href="Documentation/Architecture.pdf" target="_blank">Architecture Document</a>
+                    <span class="file-tag">PDF</span>
+                </li>
+                <li>
+                    <a href="Documentation/Implementation.pdf" target="_blank">Implementation Document</a>
+                    <span class="file-tag">PDF</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Project Data & Spreadsheets -->
+        <section>
+            <h2>📊 Project Data & Risk Register</h2>
+            <ul>
+                <li>
+                    <a href="Risk%20Register%20Data.xlsx" download>Download Risk Register Data (.xlsx)</a>
+                    <span class="file-tag">Excel</span>
+                </li>
+                <li>
+                    <a href="README.md" target="_blank">View Repository README</a>
+                    <span class="file-tag">Markdown</span>
+                </li>
+            </ul>
+        </section>
+
+        <!-- Diagrams & Media -->
+        <section>
+            <h2>📐 Architecture & Design Diagrams</h2>
+            <ul>
+                <li>
+                    <a href="Interim_Architecture_Diagrams/" target="_blank">Browse Class & Architecture Diagrams</a>
+                    <span class="file-tag">Folder</span>
+                </li>
+            </ul>
+        </section>
+    </div>
+</body>
+</html>
