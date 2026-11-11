@@ -2,6 +2,8 @@ package io.github.some_example_name.Sprites.GameObjects.Tiles;
 
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import io.github.some_example_name.Sprites.GameObjects.GameObject;
@@ -47,5 +49,22 @@ public class Tile extends GameObject {
     public void update(float deltaTime) {
         // TODO Auto-generated method stub
         throw new UnsupportedOperationException("Unimplemented method 'update'");
+    }
+
+    /** If visible, draws tile
+     * 
+     * @see com.badlogic.gdx.graphics.g2d.Sprite#draw(com.badlogic.gdx.graphics.g2d.Batch)
+     * @author Oliver Quantrill-Scott
+     */
+    @Override 
+    public void draw(Batch batch, Vector2 position) {
+        if (visible) {
+            super.draw(batch, position);
+        }
+    }
+    public void draw(Batch batch) {
+        if (visible) {
+            super.draw(batch);
+        }
     }
 }

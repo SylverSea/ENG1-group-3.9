@@ -1,10 +1,13 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import io.github.some_example_name.GdxMainGame;
+import io.github.some_example_name.Sprites.GameObjects.MovingObjects.Player;
 
 public class Nest extends InteractableObject {
 
@@ -57,7 +60,7 @@ public class Nest extends InteractableObject {
             mainGame.addScore(getPoints());
             mainGame.incrementEvents();
         } else {
-            ((GdxMainGame) game).spawnGoose(getPosition());
+            ((GdxMainGame) game).spawnGoose(getRelativePosition()); //spawn goose on 3rd use
         }
     }
 }

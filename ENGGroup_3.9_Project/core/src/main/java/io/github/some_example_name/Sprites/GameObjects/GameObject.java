@@ -61,7 +61,7 @@ public abstract class GameObject extends Sprite {
      * @return the vector of the bottom centre of the object.
      * @author Oliver Quantrill-Scott
      */
-    public Vector2 getPosition() {
+    public Vector2 getRelativePosition() {
         return new Vector2(getX() + getWidth() / 2, getY()); 
     }
 

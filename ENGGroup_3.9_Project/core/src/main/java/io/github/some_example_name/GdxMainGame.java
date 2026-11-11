@@ -21,26 +21,26 @@ import io.github.some_example_name.Pannels.TextBox;
 import io.github.some_example_name.Pannels.Menus.PauseMenu;
 import io.github.some_example_name.Pannels.Menus.StartMenu;
 import io.github.some_example_name.Sprites.GameObjects.GameObject;
-import io.github.some_example_name.Sprites.GameObjects.Goose;
 import io.github.some_example_name.Sprites.GameObjects.InteractableObject;
 import io.github.some_example_name.Sprites.GameObjects.MapItem;
 import io.github.some_example_name.Sprites.GameObjects.Nest;
-import io.github.some_example_name.Sprites.GameObjects.Player;
 import io.github.some_example_name.Sprites.GameObjects.Statue;
-import io.github.some_example_name.Sprites.GameObjects.Tiles.NonWallTile;
-import io.github.some_example_name.Sprites.GameObjects.Tiles.Tile;
+import io.github.some_example_name.Sprites.GameObjects.MovingObjects.Goose;
+import io.github.some_example_name.Sprites.GameObjects.MovingObjects.Player;
+import io.github.some_example_name.Sprites.GameObjects.Tiles.*;
 
 /** {@link com.badlogic.gdx.ApplicationListener} implementation shared by all platforms. */
 public class GdxMainGame extends Game {
     private SpriteBatch batch;
     private OrthographicCamera camera;
     private Player player;
-    private ArrayList<NonWallTile> tiles = new ArrayList<>();
+    private ArrayList<Tile> tiles = new ArrayList<>();
     private ArrayList<Goose> geese = new ArrayList<>();
     private ArrayList<GameObject> gameObjects = new ArrayList<>();
     private ArrayList<InteractableObject> interactables = new ArrayList<>();
     /** list of items on map */
     private ArrayList<MapItem> pickups = new ArrayList<>();
+    private ArrayList<GameObject> solidObjects = new ArrayList<>();
     /** variable for pausing game */
     private boolean isPaused = true;
     /** variable for game starting */
@@ -94,14 +94,31 @@ public class GdxMainGame extends Game {
         //constructs pause menu for game to start at
         pauseMenu = new PauseMenu(batch, camera);
 
+        //Instanciate wall tiles and add to solidObjects list
+        Texture wallTexture = new Texture(Gdx.files.internal("tile.png"));
+        tiles.add(new WallTile(
+            wallTexture,
+            500, 200,
+            40, 40,
+            this, gameViewport));
+        solidObjects.addAll(tiles); // Add the wall tile to the list of solid objects
+
+        //Instanciate non-wall tiles
+        tiles.addFirst(new NonWallTile(
+            new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
+            -500, -500,
+            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
+            false,
+            this, gameViewport)
+        );
+        
         //creates player and adds to gameObjects
         Texture playertexture = new Texture(Gdx.files.internal(String.format("player.png")));
         player = new Player(
             playertexture,
             0, 40,
-            40, 80, //made dude bit bigger
-            this, gameViewport, 100 //creates players health (100 for testing unsure on nr)
-        );
+            40, 80,
+            this, gameViewport, 10, solidObjects); //creates players health
         gameObjects.add(player); // Add player to the list of game objects
 
 
@@ -110,23 +127,14 @@ public class GdxMainGame extends Game {
             100, 100,
             32, 32,
             player,
-            this, gameViewport));
+            this, gameViewport, solidObjects));
         geese.add(new Goose(
             new Texture(Gdx.files.internal(String.format("goose.png"))),
             200, 150,
             32, 32,
             player,
-            this, gameViewport));
+            this, gameViewport, solidObjects));
         gameObjects.addAll(geese); // Add geese to the list of game objects
-
-
-        tiles.add(new NonWallTile(
-            new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
-            -500, -500,
-            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
-            false,
-            this, gameViewport)
-        );
 
         //matches hudcamera viewport to sceen pixel size so hud stays a fixed size regardless of camera.
         hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
@@ -194,7 +202,7 @@ public class GdxMainGame extends Game {
             isPaused = false;
         }
 
-        if (!isPaused) {
+        if (!isPaused && gameStarted && !gameOver) {
             player.update(deltaTime); // Update player movement only when the game is not paused
 
             for (Goose goose : geese) {
@@ -214,7 +222,7 @@ public class GdxMainGame extends Game {
             float nearestDist = Float.MAX_VALUE;
             for (InteractableObject obj : interactables) {
                 if (!obj.canInteract()) continue; //skips object (nest or statue) already used 3 times 
-                float dist = player.getPosition().dst(obj.getPosition());
+                float dist = player.getRelativePosition().dst(obj.getRelativePosition());
                 if (dist < INTERACT_RANGE && dist < nearestDist) {
                     nearest = obj;
                     nearestDist = dist;
@@ -246,7 +254,7 @@ public class GdxMainGame extends Game {
         }
 
         //Set camera position to player's position (adjusting for difference between Vector2 and Vector3)
-        camera.position.set(player.getPosition().x / 2, player.getPosition().y / 2, 0);
+        camera.position.set(player.getRelativePosition().x / 2, player.getRelativePosition().y / 2, 0);
         camera.update();
 
         //add the camera to the batch projection matrix
@@ -276,7 +284,6 @@ public class GdxMainGame extends Game {
             }
         }
 
-        //draws the player using batch.draw instead of player.draw(batch) which seems to work better
         for (GameObject gameObject : gameObjects) {
             gameObject.draw(batch, new Vector2(camera.position.x, camera.position.y));
         }
@@ -324,7 +331,7 @@ public class GdxMainGame extends Game {
             new Texture(Gdx.files.internal("goose.png")),
             (int) position.x, (int) position.y,
             32, 32,
-            player, this, gameViewport
+            player, this, gameViewport, solidObjects
         );
         geese.add(goose);
         gameObjects.add(goose);
@@ -370,10 +377,17 @@ public class GdxMainGame extends Game {
     /** disposes of everything when closed (libgdx classic)
      *
      * @author Erikas Jovaisa
+     * @author Oliver Quantrill-Scott
      */
     @Override
     public void dispose() {
         batch.dispose();
-        player.dispose();
+        for (GameObject gameObject : gameObjects) {
+            gameObject.dispose();
+        }
+        for (Tile tile : tiles) {
+            tile.dispose();
+        }
+        font.dispose();
     }
 }

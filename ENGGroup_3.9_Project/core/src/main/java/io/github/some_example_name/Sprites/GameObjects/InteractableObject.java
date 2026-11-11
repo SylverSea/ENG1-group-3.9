@@ -1,10 +1,13 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import io.github.some_example_name.GdxMainGame;
+import io.github.some_example_name.Sprites.GameObjects.MovingObjects.Player;
 
 /**
  *base for anything interacted with by E keystroke
@@ -45,27 +48,7 @@ public abstract class InteractableObject extends GameObject {
         return useCount < MAX_USES;
     }
 
-    /**
-     *calls when user presses e next to this object
-     * first 2 uses give points 3rd spawns geese
-     * 
-     * @param player
-     * @author Erikas Jovaisa
-     */
-    public void interact(Player player) {
-        if (!canInteract()) return;
-
-        useCount++;
-
-        if (useCount < MAX_USES) {
-            onUse(player);
-            GdxMainGame mainGame = (GdxMainGame) game;
-            mainGame.addScore(getPoints());
-            mainGame.incrementEvents();
-        } else {
-            ((GdxMainGame) game).spawnGoose(getPosition());
-        }
-    }
+    public abstract void interact(Player player);
 
     /**
      * says what a normal use does

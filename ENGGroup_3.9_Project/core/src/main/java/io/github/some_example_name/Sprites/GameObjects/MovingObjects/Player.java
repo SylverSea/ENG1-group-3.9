@@ -1,4 +1,4 @@
-package io.github.some_example_name.Sprites.GameObjects;
+package io.github.some_example_name.Sprites.GameObjects.MovingObjects;
 
 import java.util.ArrayList;
 import java.util.EnumMap;
@@ -16,8 +16,9 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
 import io.github.some_example_name.Pannels.Menus.Inventory;
+import io.github.some_example_name.Sprites.GameObjects.GameObject;
 
-public class Player extends GameObject {
+public class Player extends MovingObject {
 
     /** establishing all 8 directions for animations*/
     public enum Direction { DOWN, UP, LEFT, RIGHT, DOWN_LEFT, DOWN_RIGHT, UP_LEFT, UP_RIGHT }
@@ -27,7 +28,6 @@ public class Player extends GameObject {
     /** hold whatever player has picked up */
     private Inventory inventory = new Inventory();
     /** implemented to make it so player cant walk through the statue/nest, undecided -adding  */
-    private ArrayList<InteractableObject> solidObjects = new ArrayList<>();
 
     /** animation frame duration*/
     private static final float FRAME_DURATION = 0.12f;
@@ -55,8 +55,8 @@ public class Player extends GameObject {
      * @author James Garfield
      */
 
-    public Player(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport, int maxHealth) {
-        super(texture, x, y, width, height, game, gameViewport);
+    public Player(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport, int maxHealth, ArrayList<GameObject> solidObjects) {
+        super(texture, x, y, width, height, game, gameViewport, solidObjects);
         this.maxHealth = maxHealth;
         this.currentHealth = maxHealth;
         idleFrame = new TextureRegion(texture); //builds idle frame from default texture
@@ -205,31 +205,6 @@ public class Player extends GameObject {
         }
     }
 
-    /**list of objects the player cant walk through -decding
-     *
-     * @param solidObjects
-     * @author Erikas Jovaisa
-     */
-    public void setSolidObjects(ArrayList<InteractableObject> solidObjects) {
-        this.solidObjects = solidObjects;
-    }
-
-    /**checks wether position would overlap object
-     *
-     * @param x
-     * @param y
-     * @return
-     * @author Erikas Jovaisa
-     */
-    private boolean collidesAt(float x, float y) {
-        Rectangle testBounds = new Rectangle(x, y, getWidth(), getHeight());
-        for (InteractableObject obj : solidObjects) {
-            if (testBounds.overlaps(obj.getBoundingRectangle())) {
-                return true;
-            }
-        }
-        return false;
-    }
 
     public void Interact() {
 

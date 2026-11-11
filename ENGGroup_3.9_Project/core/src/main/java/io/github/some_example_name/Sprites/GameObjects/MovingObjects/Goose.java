@@ -1,5 +1,6 @@
-package io.github.some_example_name.Sprites.GameObjects;
+package io.github.some_example_name.Sprites.GameObjects.MovingObjects;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 import com.badlogic.gdx.Game;
@@ -7,13 +8,14 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-public class Goose extends GameObject {
+import io.github.some_example_name.Sprites.GameObjects.GameObject;
+
+public class Goose extends MovingObject {
     public static final float RETREAT_TIME = 5f;
     public static final float ACTIVE_RANGE = 200f;
     public static final float ATTACK_RANGE = 5f;
     public static final float SPEED = 100f;
     public static final float RANDOMNESS_FACTOR = 1/64f;
-    public static final float MAX_WANDER_SPEED = 1f; //
 
     private float retreatTime = 0f;
     private final Player player;
@@ -33,8 +35,8 @@ public class Goose extends GameObject {
      * @param game    The game the goose exists within.
      * @author Oliver Quantrill-Scott
      */
-    public Goose(Texture texture, int x, int y, int width, int height, Player player, Game game, Viewport gameViewport) {
-        super(texture, x, y, width, height, game, gameViewport);
+    public Goose(Texture texture, int x, int y, int width, int height, Player player, Game game, Viewport gameViewport, ArrayList<GameObject> solidObjects) {
+        super(texture, x, y, width, height, game, gameViewport, solidObjects);
         this.player = player;
     }
 
@@ -46,7 +48,7 @@ public class Goose extends GameObject {
      */
     @Override
     public void update(float deltaTime) {
-        float relativeDistance = getPosition().dst(player.getPosition());
+        float relativeDistance = getRelativePosition().dst(player.getRelativePosition());
 
         if(retreatTime > 0f) {
             retreatTime -= deltaTime;
@@ -57,7 +59,18 @@ public class Goose extends GameObject {
             moveActive();
         } else { movePassive(); }
 
-        setPosition(getX() + direction.x * SPEED * deltaTime, getY() + direction.y * SPEED * deltaTime);
+        Vector2 newPosition = new Vector2(getX(), getY()).add(direction.scl(SPEED * deltaTime));
+
+        if(collidesAt(newPosition.x, newPosition.y)) {
+            if (collidesAt(getX(), newPosition.y)) {
+                newPosition.y = getY();
+            }
+            if (collidesAt(newPosition.x, getY())) {
+                newPosition.x = getX();
+            }
+        }
+
+        setPosition(newPosition.x, newPosition.y);
 
     }
 
@@ -68,8 +81,7 @@ public class Goose extends GameObject {
      * @author Oliver Quantrill-Scott
      */
     private void movePassive() {
-        direction = direction.add(new Vector2(random.nextFloat() - 0.5f, random.nextFloat() - 0.5f).nor().scl(RANDOMNESS_FACTOR));
-        direction = direction.limit(MAX_WANDER_SPEED); //caps wander direction length
+        direction = direction.add(new Vector2(random.nextFloat() - 0.5f, random.nextFloat() - 0.5f).nor().scl(RANDOMNESS_FACTOR)).nor();
     }
 
     /**
@@ -79,7 +91,7 @@ public class Goose extends GameObject {
      * @author Oliver Quantrill-Scott
      */
     private void moveActive() {
-        direction = player.getPosition().sub(getPosition()).nor();
+        direction = player.getRelativePosition().sub(getRelativePosition()).nor();
     }
 
     /**
@@ -107,6 +119,6 @@ public class Goose extends GameObject {
      * @author Oliver Quantrill-Scott
      */
     public void retreat() {
-        direction = getPosition().sub(player.getPosition()).nor();
+        direction = getRelativePosition().sub(player.getRelativePosition()).nor();
     }
 }
