@@ -177,7 +177,7 @@ public class GdxMainGame extends Game {
     }
 
     /**
-     * Renders the basic textures.
+     * Runs through one frame of the game
      *
      * @author Oliver Quantrill-Scott
      * @author James Garfield
@@ -203,60 +203,81 @@ public class GdxMainGame extends Game {
         }
 
         if (!isPaused && gameStarted && !gameOver) {
-            player.update(deltaTime); // Update player movement only when the game is not paused
+            Update(deltaTime); // Update game state only when the game is not paused
+        }
 
-            for (Goose goose : geese) {
-                goose.update(deltaTime); // Update each goose's behavior
+        Draw(); // Always draw the game state, regardless of pause state
+    }
+
+    /**
+     * Updates the game state, including player and goose movements, interactions, and game over conditions.
+     * 
+     * @param deltaTime
+     * @author Oliver Quantrill-Scott
+     * @author James Garfield
+     */
+    public void Update(float deltaTime) {
+        player.update(deltaTime); // Update player movement only when the game is not paused
+
+        for (Goose goose : geese) {
+            goose.update(deltaTime); // Update each goose's behavior
+        }
+
+        timeRemaining -= deltaTime; //counts down
+        if (timeRemaining <= 0 || player.getCurrentHealth() <= 0) {
+            gameOver = true;
+        }
+
+        boolean interactPressed = Gdx.input.isKeyJustPressed(Input.Keys.E);
+        boolean eggKeyPressed = Gdx.input.isKeyJustPressed(Input.Keys.NUM_2);
+
+        //scan interactables for nearest object
+        InteractableObject nearest = null;
+        float nearestDist = Float.MAX_VALUE;
+        for (InteractableObject obj : interactables) {
+            if (!obj.canInteract()) continue; //skips object (nest or statue) already used 3 times 
+            float dist = player.getRelativePosition().dst(obj.getRelativePosition());
+            if (dist < INTERACT_RANGE && dist < nearestDist) {
+                nearest = obj;
+                nearestDist = dist;
             }
+        }
+        showPrompt = nearest != null;
+        //sets interact prompt based on nearest object
+        if (nearest != null) {
+            interactPrompt.setText(nearest instanceof Nest ? "Press 2 (egg) to interact" : "Press E to interact");
+        }
 
-            timeRemaining -= deltaTime; //counts down
-            if (timeRemaining <= 0 || player.getCurrentHealth() <= 0) {
-                gameOver = true;
-            }
-
-            boolean interactPressed = Gdx.input.isKeyJustPressed(Input.Keys.E);
-            boolean eggKeyPressed = Gdx.input.isKeyJustPressed(Input.Keys.NUM_2);
-
-            //scan interactables for nearest object
-            InteractableObject nearest = null;
-            float nearestDist = Float.MAX_VALUE;
-            for (InteractableObject obj : interactables) {
-                if (!obj.canInteract()) continue; //skips object (nest or statue) already used 3 times 
-                float dist = player.getRelativePosition().dst(obj.getRelativePosition());
-                if (dist < INTERACT_RANGE && dist < nearestDist) {
-                    nearest = obj;
-                    nearestDist = dist;
-                }
-            }
-            showPrompt = nearest != null;
-            //sets interact prompt based on nearest object
-            if (nearest != null) {
-                interactPrompt.setText(nearest instanceof Nest ? "Press 2 (egg) to interact" : "Press E to interact");
-            }
-
-            //nest interacet with by using ergg item slot over e others still use e
-            if (nearest instanceof Nest) {
-                if (eggKeyPressed) {
-                    nearest.interact(player);
-                }
-            } else if (nearest != null && interactPressed) {
+        //nest interacet with by using ergg item slot over e others still use e
+        if (nearest instanceof Nest) {
+            if (eggKeyPressed) {
                 nearest.interact(player);
             }
+        } else if (nearest != null && interactPressed) {
+            nearest.interact(player);
+        }
 
-            if (interactPressed) {
-                checkItemPickups(); //calls item pickup on e press
-            }
+        if (interactPressed) {
+            checkItemPickups(); //calls item pickup on e press
+        }
 
-            //key bindings for inventory slots - 1 uses a bandage, 2 interacts with a nearby nest (handled above)
-            if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
-                player.UseItem("bandage");
-            }
+        //key bindings for inventory slots - 1 uses a bandage, 2 interacts with a nearby nest (handled above)
+        if (Gdx.input.isKeyJustPressed(Input.Keys.NUM_1)) {
+            player.UseItem("bandage");
         }
 
         //Set camera position to player's position (adjusting for difference between Vector2 and Vector3)
         camera.position.set(player.getRelativePosition().x / 2, player.getRelativePosition().y / 2, 0);
         camera.update();
+    }
 
+    /**
+     * Draws the game
+     * 
+     * @author Oliver Quantrill-Scott
+     * @author James Garfield
+     */
+    public void Draw() {
         //add the camera to the batch projection matrix
         batch.setProjectionMatrix(camera.combined);
 
