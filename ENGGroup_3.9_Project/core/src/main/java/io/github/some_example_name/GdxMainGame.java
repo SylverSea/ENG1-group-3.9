@@ -125,13 +125,13 @@ public class GdxMainGame extends Game {
         geese.add(new Goose(
             new Texture(Gdx.files.internal(String.format("goose.png"))),
             100, 100,
-            32, 32,
+            48, 48,
             player,
             this, gameViewport, solidObjects));
         geese.add(new Goose(
             new Texture(Gdx.files.internal(String.format("goose.png"))),
             200, 150,
-            32, 32,
+            48, 48,
             player,
             this, gameViewport, solidObjects));
         gameObjects.addAll(geese); // Add geese to the list of game objects
@@ -281,7 +281,7 @@ public class GdxMainGame extends Game {
         //add the camera to the batch projection matrix
         batch.setProjectionMatrix(camera.combined);
 
-        ScreenUtils.clear(Color.GREEN); //clears the screen before drawing loop
+        ScreenUtils.clear(Color.PURPLE); //clears the screen before drawing loop
 
         //batch.setProjectionMatrix(viewport.getCamera().combined);
 
@@ -351,7 +351,7 @@ public class GdxMainGame extends Game {
         Goose goose = new Goose(
             new Texture(Gdx.files.internal("goose.png")),
             (int) position.x, (int) position.y,
-            32, 32,
+            48, 48,
             player, this, gameViewport, solidObjects
         );
         geese.add(goose);

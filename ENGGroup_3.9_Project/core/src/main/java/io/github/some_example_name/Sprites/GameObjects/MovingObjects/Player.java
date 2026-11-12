@@ -148,6 +148,11 @@ public class Player extends MovingObject {
         boolean left = Gdx.input.isKeyPressed(Input.Keys.A);
         boolean right = Gdx.input.isKeyPressed(Input.Keys.D);
 
+        //lowers speed when moving diagonally
+        if ((up || down) && (right || left)){
+            speed /= (float)(Math.sqrt(2));
+        }
+
         //W move player up
         if (up){
             float newY = getY() + Math.round(speed);
@@ -179,6 +184,7 @@ public class Player extends MovingObject {
                 setX(newX);
             }
         }
+
 
         updateWalkAnimation(deltaTime, up, down, left, right);
     }
