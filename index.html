@@ -28,16 +28,41 @@
             padding-bottom: 1rem;
             margin-bottom: 2rem;
         }
-        h1 { margin: 0; color: #111; }
+        h1 {
+            margin: 0;
+            color: #111;
+        }
         h1 a {
-                color: inherit;
-                font-weight: inherit;
-         }
+            color: inherit;
+            font-weight: inherit;
+            display: inline-flex;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+        }
         h1 a:hover {
-                color: var(--primary);
-                text-decoration: none;
-        }    
-        .subtitle { color: #555; margin-top: 0.25rem; }
+            color: var(--primary);
+            text-decoration: none;
+        }
+        .repo-tag {
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: #e0f2fe;
+            color: var(--primary);
+            border: 1px solid #bae6fd;
+            padding: 0.25rem 0.6rem;
+            border-radius: 5px;
+            transition: background-color 0.15s ease, color 0.15s ease;
+        }
+        h1 a:hover .repo-tag {
+            background: var(--primary);
+            color: #ffffff;
+            border-color: var(--primary);
+        }
+        .subtitle {
+            color: #555;
+            margin-top: 0.25rem;
+        }
         section {
             background: var(--card-bg);
             padding: 1.5rem;
@@ -45,15 +70,27 @@
             box-shadow: 0 2px 5px rgba(0,0,0,0.05);
             margin-bottom: 1.5rem;
         }
-        h2 { margin-top: 0; color: var(--primary); border-bottom: 1px solid #eee; padding-bottom: 0.5rem; }
-        ul { list-style-type: none; padding-left: 0; }
-        li { margin-bottom: 0.75rem; }
+        h2 {
+            margin-top: 0;
+            color: #1e293b;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 0.5rem;
+        }
+        ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        li {
+            margin-bottom: 0.75rem;
+        }
         a {
             color: var(--primary);
             text-decoration: none;
             font-weight: 600;
         }
-        a:hover { text-decoration: underline; }
+        a:hover {
+            text-decoration: underline;
+        }
         .btn {
             display: inline-block;
             background: var(--primary);
@@ -63,7 +100,10 @@
             text-decoration: none;
             font-weight: bold;
         }
-        .btn:hover { background: #005a9c; text-decoration: none; }
+        .btn:hover {
+            background: #005a9c;
+            text-decoration: none;
+        }
         .file-tag {
             font-size: 0.8rem;
             background: #e2e8f0;
@@ -77,20 +117,21 @@
 <body>
     <div class="container">
         <header>
-    <h1>
-        <a href="https://github.com/sylversea/ENG1-group-3.9" target="_blank" rel="noopener noreferrer">
-            ENG1 Group 3.9 - Inside N.o 9
-        </a>
-    </h1>
-    <p class="subtitle">Software Engineering Project Website (26/27)</p>
-</header>
+            <h1>
+                <a href="https://github.com/sylversea/ENG1-group-3.9" target="_blank" rel="noopener noreferrer">
+                    ENG1 Group 3.9 - Inside N.o 9
+                    <span class="repo-tag">GitHub Repo ↗</span>
+                </a>
+            </h1>
+            <p class="subtitle">Software Engineering Project Website (26/27)</p>
+        </header>
 
         <!-- Project Executable / Source Section -->
         <section>
             <h2>💻 Project Executable & Source Code</h2>
             <p>Access the main software codebase directory on GitHub:</p>
             <p>
-                <a href="https://github.com/sylversea/ENG1-group-3.9/tree/main/ENGGroup_3.9_Project" class="btn" target="_blank">View LibGDX Project Source Code</a>
+                <a href="https://github.com/sylversea/ENG1-group-3.9/tree/main/ENGGroup_3.9_Project" class="btn" target="_blank" rel="noopener noreferrer">View LibGDX Project Source Code</a>
             </p>
         </section>
 
