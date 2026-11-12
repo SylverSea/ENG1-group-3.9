@@ -104,7 +104,7 @@ public class GdxMainGame extends Game {
         solidObjects.addAll(tiles); // Add the wall tile to the list of solid objects
 
         //Instanciate non-wall tiles
-        tiles.addFirst(new NonWallTile(
+        tiles.add(0, new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
             -500, -500,
             Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
