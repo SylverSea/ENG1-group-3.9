@@ -1,7 +1,5 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -13,6 +11,17 @@ public class Nest extends InteractableObject {
 
     public static final int POINTS = 10;
 
+    /**
+     * Generates the nest object
+     * 
+     * @param texture       The texture of the nest
+     * @param x             The x-coordinate of the nest
+     * @param y             The y-coordinate of the nest
+     * @param width         The width of the nest
+     * @param height        The height of the nest
+     * @param game          The game
+     * @param gameViewport  The game's viewport
+     */
     public Nest(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
         super(texture, x, y, width, height, game, gameViewport);
     }
@@ -21,7 +30,7 @@ public class Nest extends InteractableObject {
      *consumes one egg from the player's inventory when the nest is used -
      *does nothing if the player has none (same safe no-op pattern as Player.UseItem)
      *
-     * @param player
+     * @param player The player
      * @author Erikas Jovaisa
      */
     @Override
@@ -32,7 +41,7 @@ public class Nest extends InteractableObject {
     /**
      * returns points awarded for using nest
      * 
-     * @return
+     * @return points awarded for using nest
      * @author Erikas Jovaisa
      */
     @Override
@@ -45,7 +54,7 @@ public class Nest extends InteractableObject {
      * that spawns the goose instead of giving points) - the first 2 uses behave exactly
      * as the base class's interact()
      *
-     * @param player
+     * @param player The player
      * @author Erikas Jovaisa
      */
     @Override

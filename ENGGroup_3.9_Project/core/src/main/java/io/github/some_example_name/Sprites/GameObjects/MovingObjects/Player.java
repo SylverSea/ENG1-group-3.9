@@ -11,7 +11,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
-import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
@@ -23,6 +22,7 @@ public class Player extends MovingObject {
     /** establishing all 8 directions for animations*/
     public enum Direction { DOWN, UP, LEFT, RIGHT, DOWN_LEFT, DOWN_RIGHT, UP_LEFT, UP_RIGHT }
 
+    public static final float SPEED = 200f;
     private int maxHealth;
     private int currentHealth;
     /** hold whatever player has picked up */
@@ -47,12 +47,12 @@ public class Player extends MovingObject {
     /**
      * constructer - creates a new instance of player at the starting coordinates, texture and dimentions
      *
-     * @param texture The texture for the player.
-     * @param x       The x-coordinate of the player.
-     * @param y       The y-coordinate of the player.
-     * @param width   The width of the player.
-     * @param height  The height of the player.
-     * @param game    The game the player exists within.
+     * @param texture   The texture for the player.
+     * @param x         The x-coordinate of the player.
+     * @param y         The y-coordinate of the player.
+     * @param width     The width of the player.
+     * @param height    The height of the player.
+     * @param game      The game the player exists within.
      * @param maxHealth The max health the player starts with
      * @author James Garfield
      */
@@ -65,9 +65,10 @@ public class Player extends MovingObject {
         buildWalkAnimations();
     }
 
-    /** super awkwar to figure out this was
-     *measured walking framed from each direction
-     *cut from sprite sheet to get each animation frame
+    /**
+     * super awkwar to figure out this was
+     * measured walking framed from each direction
+     * cut from sprite sheet to get each animation frame
      *
      * @author Erikas Jovaisa
      */
@@ -80,7 +81,7 @@ public class Player extends MovingObject {
     private static final int[][] DIAGONAL_UP_LEFT    = {{25,199,52,83}, {136,199,53,83}, {259,199,52,83}, {376,199,52,83}, {482,199,52,83}};
 
     /**
-     *builds all animations from both the sheets
+     * builds all animations from both the sheets
      *
      * @author Erikas Jovaisa
      */
@@ -111,6 +112,8 @@ public class Player extends MovingObject {
     /**
      * flips every frame of a built anim horizontally to get mirror direction
      * 
+     * @param source
+     * @return    
      * @author Erikas Jovaisa
      */
     private Animation<TextureRegion> mirroredAnimation(Animation<TextureRegion> source) {
@@ -124,7 +127,11 @@ public class Player extends MovingObject {
     }
 
     /**
-     * cuts one animation's frames out of a sheet using the pixel borders
+     * Cuts one animation's frames out of a sheet using the pixel borders
+     * 
+     * @param sheet
+     * @param frameBoxes
+     * @return
      * @author Erikas Jovaisa
      */
     private Animation<TextureRegion> walkAnimation(Texture sheet, int[][] frameBoxes) {
@@ -143,7 +150,7 @@ public class Player extends MovingObject {
      * @author James Garfield
      */
     public void Move(float deltaTime) {
-        float speed = 200 * deltaTime;
+        float speed = SPEED * deltaTime;
 
         boolean up = Gdx.input.isKeyPressed(Input.Keys.W);
         boolean down = Gdx.input.isKeyPressed(Input.Keys.S);
@@ -193,7 +200,13 @@ public class Player extends MovingObject {
 
     /**
      * work out what dir player faces from last keystroke
-     *  advances statetime while moving
+     * advances statetime while moving
+     * 
+     * @param deltaTime the time between frames
+     * @param up        is the player facing up
+     * @param down      is the player facing down
+     * @param left      is the player facing left
+     * @param right     is the player facing right
      * @author Erikas Jovaisa
      */
     private void updateWalkAnimation(float deltaTime, boolean up, boolean down, boolean left, boolean right) {
@@ -213,15 +226,10 @@ public class Player extends MovingObject {
         }
     }
 
-
-    public void Interact() {
-
-    }
-
     /**
      * uses an item from inventory by itemID
      *
-     * @param itemID
+     * @param itemID    ID of the item to be used
      * @author Erikas Jovaisa
      */
     public void UseItem(String itemID) {
@@ -234,7 +242,11 @@ public class Player extends MovingObject {
         }
     }
 
-    /** returns count for the hud to read */
+    /**
+     * Returns count for the hud to read
+     * 
+     * @return  the number of items used
+     */
     public int getItemsUsedCount() {
         return itemsUsedCount;
     }
@@ -263,18 +275,27 @@ public class Player extends MovingObject {
         currentHealth = Math.min(maxHealth, currentHealth + amount);
     }
 
+    /**
+     * Returns the current health
+     * 
+     * @return the current health
+     */
     public int getCurrentHealth() {
         return currentHealth;
     }
 
+    /**
+     * Returns the max health
+     * @return the max health
+     */
     public int getMaxHealth() {
         return maxHealth;
     }
 
     /**
-     * returns players inventory to check if item is held
+     * returns player's inventory to check if item is held
      * 
-     * @return
+     * @return the player's inventory
      * @author Erikas Jovaisa
      */
     public Inventory getInventory() {
@@ -284,7 +305,7 @@ public class Player extends MovingObject {
     /**
      *updates player position for this frame
      * 
-     * @param deltaTime
+     * @param deltaTime the time between frames
      * @author Erikas Jovaisa
      */
     @Override
@@ -292,8 +313,8 @@ public class Player extends MovingObject {
         Move(deltaTime);
     }
 
-    /**
-     *
+    /**    (non-Javadoc)
+     * @see io.github.some_example_name.Sprites.GameObjects.GameObject#draw(com.badlogic.gdx.graphics.g2d.Batch, com.badlogic.gdx.math.Vector2)
      */
     @Override
     public void draw(Batch batch, Vector2 cameraPosition) {

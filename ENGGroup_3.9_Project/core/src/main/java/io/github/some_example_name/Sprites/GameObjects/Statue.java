@@ -1,7 +1,5 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
@@ -13,6 +11,18 @@ public class Statue extends InteractableObject {
 
     public static final int POINTS = 25;
 
+    /**
+     * Generates the statue object
+     * 
+     * @param texture       The texture of the statue
+     * @param x             The x-coordinate of the statue
+     * @param y             The y-coordinate of the statue
+     * @param width         The width of the statue
+     * @param height        The height of the statue
+     * @param game          The game
+     * @param gameViewport  The game's viewport
+     */
+
     public Statue(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
         super(texture, x, y, width, height, game, gameViewport);
     }
@@ -21,7 +31,7 @@ public class Statue extends InteractableObject {
      *calls when user presses e next to this object
      * first 2 uses give points 3rd spawns geese
      * 
-     * @param player
+     * @param player The player
      * @author Erikas Jovaisa
      */
     @Override
@@ -41,9 +51,8 @@ public class Statue extends InteractableObject {
     }
 
     /**gives player bandage when text is used
-     *
      * 
-     * @param player
+     * @param player the player
      * @author Erikas
      */
     @Override
@@ -54,7 +63,7 @@ public class Statue extends InteractableObject {
     /**
      * returns points awarded for using statue
      * 
-     * @return
+     * @return points awarded for using statue
      * @author Erikas
      */
     @Override

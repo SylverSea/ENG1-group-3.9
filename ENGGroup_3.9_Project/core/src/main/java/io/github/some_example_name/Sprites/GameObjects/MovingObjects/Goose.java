@@ -54,13 +54,15 @@ public class Goose extends MovingObject {
     /**
      * Creates a new Goose with specified texture and position.
      *
-     * @param texture The texture for the goose.
-     * @param x       The x-coordinate of the goose.
-     * @param y       The y-coordinate of the goose.
-     * @param width   The width of the goose.
-     * @param height  The height of the goose.
-     * @param player  The player that the goose will interact with.
-     * @param game    The game the goose exists within.
+     * @param texture       The texture for the goose.
+     * @param x             The x-coordinate of the goose.
+     * @param y             The y-coordinate of the goose.
+     * @param width         The width of the goose.
+     * @param height        The height of the goose.
+     * @param player        The player that the goose will interact with.
+     * @param game          The game the goose exists within.
+     * @param gameViewport  The viewport of the game.
+     * @param solidObjects  The list of colidable objects
      * @author Oliver Quantrill-Scott
      */
     public Goose(Texture texture, int x, int y, int width, int height, Player player, Game game, Viewport gameViewport, ArrayList<GameObject> solidObjects) {
@@ -79,7 +81,13 @@ public class Goose extends MovingObject {
         walkAnimations.put(Direction.RIGHT, walkAnimation(walkSheet, GOOSE_RIGHT));
     }
 
-    /** slices animation out of a sheet from list of pixel boxes*/
+    /**
+     * slices animation out of a sheet from list of pixel boxes
+     * 
+     * @param sheet
+     * @param frameBoxes
+     * @return
+     */
     private Animation<TextureRegion> walkAnimation(Texture sheet, int[][] frameBoxes) {
         TextureRegion[] frames = new TextureRegion[frameBoxes.length];
         for (int i = 0; i < frameBoxes.length; i++) {
@@ -89,7 +97,11 @@ public class Goose extends MovingObject {
         return new Animation<>(FRAME_DURATION, frames);
     }
 
-    /** workout out which direction the duck faces in and advances time while the duck moves to play animation */
+    /** 
+     * workout out which direction the duck faces in and advances time while the duck moves to play animation
+     *
+     * @param deltaTime time between frames
+     */
     private void updateWalkAnimation(float deltaTime) {
         if (Math.abs(direction.x) > Math.abs(direction.y)) {
             facing = direction.x > 0 ? Direction.RIGHT : Direction.LEFT;
@@ -102,7 +114,11 @@ public class Goose extends MovingObject {
         }
     }
 
-    /** plays walk animation for current direction or idle frame if not moving */
+    /**    (non-Javadoc)
+     * plays walk animation for current direction or idle frame if not moving
+     * 
+     * @see io.github.some_example_name.Sprites.GameObjects.GameObject#draw(com.badlogic.gdx.graphics.g2d.Batch, com.badlogic.gdx.math.Vector2)
+     */
     @Override
     public void draw(Batch batch, Vector2 cameraPosition) {
         boolean moving = direction.len2() > 0.0001f;
@@ -143,7 +159,6 @@ public class Goose extends MovingObject {
         }
 
         setPosition(newPosition.x, newPosition.y);
-
     }
 
     /**

@@ -20,10 +20,10 @@ public class Button extends Pannel {
 
     /** stores size/pos, builds a grey box texture with white text - default look
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
+     * @param x         x-coordinate of button
+     * @param y         y-coordinate of button
+     * @param width     width of button
+     * @param height    height of button
      * @author Erikas Jovaisa
      */
     public Button(float x, float y, float width, float height) {
@@ -33,12 +33,12 @@ public class Button extends Pannel {
     /** stores size/pos
      * builds box texture in the given colour, label drawn in the given text colour
      *
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param boxColor
-     * @param textColor
+     * @param x         x-coordinate of button
+     * @param y         y-coordinate of button
+     * @param width     width of button
+     * @param height    height of button
+     * @param boxColor  colour of the button
+     * @param textColor colour of text
      * @author Erikas Jovaisa
      */
     public Button(float x, float y, float width, float height, Color boxColor, Color textColor) {
@@ -55,8 +55,8 @@ public class Button extends Pannel {
     /**
      * builds a single coloured pixel, stretched to the button's size when drawn
      *
-     * @param color
-     * @return
+     * @param color Colour of pixel
+     * @return      the resulting texture
      * @author Erikas Jovaisa
      */
     private Texture buildBoxTexture(Color color) {
@@ -69,9 +69,9 @@ public class Button extends Pannel {
     }
 
     /**
-     * returns buttons x coordinate
+     * returns button's x-coordinate
      * 
-     * @return
+     * @return  x-coordinate
      * @author Erikas Jovaisa
      */
     public float getX() {
@@ -79,9 +79,9 @@ public class Button extends Pannel {
     }
 
     /**
-     * returns buttons y coordinate
+     * returns button's y-coordinate
      * 
-     * @return
+     * @return  y-coordinate
      * @author Erikas Jovaisa
      */
     public float getY() {
@@ -89,12 +89,12 @@ public class Button extends Pannel {
     }
 
     /**
-     * checks if a point falls in buttons bounds and 
+     * checks if a point falls in button's bounds and 
      * click bounds multiple by scale to adjust for screen size
      * 
-     * @param touchX
-     * @param touchY
-     * @return
+     * @param touchX    x-coordinate of point
+     * @param touchY    y-coordinate of point
+     * @return          if point falls in button's bounds
      * @author Erikas Jovaisa
      */
     public boolean isClicked(float touchX, float touchY) {
@@ -107,12 +107,12 @@ public class Button extends Pannel {
     }
 
     /**
-     *checks if a point (the mouse, every frame) falls in the buttons bounds - same test as
-     *isClicked, just under a clearer name for hover checks
+     * checks if a point (the mouse, every frame) falls in the buttons bounds - same test as
+     * isClicked, just under a clearer name for hover checks
      *
-     * @param pointX
-     * @param pointY
-     * @return
+     * @param pointX    x-coordinates
+     * @param pointY    y-coordinates
+     * @return          if point (the mouse, every frame) falls in the buttons bounds
      * @author Erikas Jovaisa
      */
     public boolean isHovered(float pointX, float pointY) {
@@ -120,11 +120,11 @@ public class Button extends Pannel {
     }
 
     /**
-     *draws the drey button box with label on top
+     * draws the drey button box with label on top
      * 
-     * @param batch
-     * @param label
-     * @param font
+     * @param batch Batch used for button
+     * @param label text within button
+     * @param font  Font of text
      * @author Erikas Jovaisa
      */
     public void draw(SpriteBatch batch, String label, BitmapFont font) {
@@ -134,10 +134,10 @@ public class Button extends Pannel {
     /**
      *draws the button box (darker if hovered) with label on top
      *
-     * @param batch
-     * @param label
-     * @param font
-     * @param hovered true to draw the darker hover box instead of the normal one
+     * @param batch     Batch used for button
+     * @param label     text within button
+     * @param font      Font of text
+     * @param hovered   true to draw the darker hover box instead of the normal one
      * @author Erikas Jovaisa
      */
     public void draw(SpriteBatch batch, String label, BitmapFont font, boolean hovered) {

@@ -16,7 +16,7 @@ import io.github.some_example_name.Pannels.Menus.Inventory;
  */
 public class Hotbar extends Pannel {
 
-    //loads textures and slots
+    /**loads textures and slots */
     private SpriteBatch batch;
     private BitmapFont font;
 
@@ -25,7 +25,10 @@ public class Hotbar extends Pannel {
     private Texture eggIcon;
 
     /**
-     * builds a stretched grey pixel into background and bandage/egg icound
+     * Builds a stretched grey pixel into background and bandage/egg icound
+     * 
+     * @param batch The batch tobe drawn to
+     * @param font  Font of text
      */
     public Hotbar(SpriteBatch batch, BitmapFont font) {
         this.batch = batch;
@@ -44,6 +47,10 @@ public class Hotbar extends Pannel {
     /**
      * draws bandage and egg slots in fixed screen positions
      * can be changed to change by resolution
+     * 
+     * @param inventory The player's inventory
+     * @param itemsUsed Items in the player's inbentory
+     * @param scale     The scale by which the size of the hotbar is increased
      */
     public void draw(Inventory inventory, int itemsUsed, float scale) {
         float baseX = 280 * scale;
@@ -57,6 +64,13 @@ public class Hotbar extends Pannel {
 
     /**
      * draws one box slot with its key label, only draws the icon and held amounut when ammount> 0
+     *
+     * @param icon      Texture of item to be drawn
+     * @param quantity  The quantity of the item to be drawn
+     * @param keyLabel  The button to be pressed to use the item
+     * @param x         x-coordinate of the box
+     * @param y         y-coordinate of the box
+     * @param scale     the scale by which the size of the box is increased
      */
     private void drawSlot(Texture icon, int quantity, String keyLabel, float x, float y, float scale) {
         float slotSize = 40 * scale;

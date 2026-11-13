@@ -55,7 +55,6 @@ public class GdxMainGame extends Game {
     /** textbox dependant on if interact should pop up */
     private TextBox interactPrompt;
     private Viewport gameViewport = new ExtendViewport(400, 400);
-    private MapItem bandage;
 
     /** timer value (5min) */
     private static final float ROUND_DURATION = 300f;
@@ -107,13 +106,30 @@ public class GdxMainGame extends Game {
             500, 200,
             40, 40,
             this, gameViewport));
+        tiles.add(new WallTile(wallTexture,
+            -810, -810,
+            10, 1610,
+            null, gameViewport));
+        tiles.add(new WallTile(wallTexture,
+            -810, 800,
+            1610, 10,
+            null, gameViewport));
+        tiles.add(new WallTile(wallTexture,
+            800, -800,
+            10, 1550,
+            null, gameViewport));
+        tiles.add(new WallTile(
+            wallTexture,
+            -800,-810,
+            1610, 10,
+            this, gameViewport));
         solidObjects.addAll(tiles); // Add the wall tile to the list of solid objects
 
         //Instanciate non-wall tiles
         tiles.add(0, new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
-            -500, -500,
-            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
+            -800, -800,
+            1600, 1600,
             false,
             this, gameViewport)
         );
@@ -122,7 +138,7 @@ public class GdxMainGame extends Game {
         Texture playertexture = new Texture(Gdx.files.internal(String.format("player.png")));
         player = new Player(
             playertexture,
-            0, 40,
+            0, 0,
             40, 80,
             this, gameViewport, 10, solidObjects); //creates players health
         gameObjects.add(player); // Add player to the list of game objects
@@ -154,13 +170,13 @@ public class GdxMainGame extends Game {
          */
         interactables.add(new Statue(
             new Texture(Gdx.files.internal(String.format("statue.png"))),
-            584, 473, //statue pos
+            600, 450, //statue pos
             34, 72, //statue size
             this, gameViewport));
         //
         interactables.add(new Nest(
             new Texture(Gdx.files.internal(String.format("nest.png"))),
-            -449, 626, //nest pos
+            -600, 700, //nest pos
             102, 102, //statue size
             this, gameViewport));
         gameObjects.addAll(interactables); //add statue and nest to drawing list
@@ -219,7 +235,7 @@ public class GdxMainGame extends Game {
     /**
      * Updates the game state, including player and goose movements, interactions, and game over conditions.
      * 
-     * @param deltaTime
+     * @param deltaTime Time between frames
      * @author Oliver Quantrill-Scott
      * @author James Garfield
      */
@@ -356,9 +372,9 @@ public class GdxMainGame extends Game {
     }
 
     /**
-     * spawns goose when player interacts a 3rd time
+     * spawns goose
      *
-     * @param position
+     * @param position position for the goose to be spawned to
      * @author Erikas Jovaisa 
      */
     public void spawnGoose(Vector2 position) {
@@ -394,7 +410,7 @@ public class GdxMainGame extends Game {
      * temporary function to increment score 
      * at a (non finalised) amount
      * 
-     * @param amount
+     * @param amount Amount for score to be incremented by
      * @author Erikas Jovaisa
      */
     public void addScore(int amount) {
@@ -409,7 +425,11 @@ public class GdxMainGame extends Game {
         eventsTriggered++;
     }
 
-    /** re-syncs hudCamera and gameViewport to the new window size and re centers interact textbox */
+    /**    (non-Javadoc)
+     *  re-syncs hudCamera and gameViewport to the new window size and re centers interact textbox
+     * 
+     * @see com.badlogic.gdx.Game#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         gameViewport.update(width, height, true);

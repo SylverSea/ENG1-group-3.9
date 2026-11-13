@@ -11,9 +11,12 @@ public class WallTile extends Tile {
     /**
      * Constructor for Tile, with the most detail that can be added.
      * 
-     * @param texture         - The NonWallTile's texture.
-     * @param x               - The NonWallTile's x-coordinate.
-     * @param y               - The NonWallTile's y-coordinate.
+     * @param texture         - The WallTile's texture.
+     * @param x               - The WallTile's x-coordinate.
+     * @param y               - The WallTile's y-coordinate.
+     * @param width           - The WallTile's width.
+     * @param height          - The WallTile's height.
+     * @param game            - The game.
      * @param gameViewport    - The game's viewport.
      * 
      * @author Sky Burrows
@@ -34,7 +37,7 @@ public class WallTile extends Tile {
     }
 
     /**    
-     * Makes Tile  rendered and adds collision.
+     * Makes Tile rendered and adds collision.
      * 
      * @author Sky Burrows
      */

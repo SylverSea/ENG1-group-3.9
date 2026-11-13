@@ -16,9 +16,9 @@ public class TextBox extends Pannel {
     /**
      * stores text and position
      *
-     * @param text
-     * @param x
-     * @param y
+     * @param text  The text of the pannel
+     * @param x     x-coordinate of the pannel
+     * @param y     y-ccordinate of the pannel
      * @author Erikas Jovaisa
      */
     public TextBox(String text, float x, float y) {
@@ -29,7 +29,7 @@ public class TextBox extends Pannel {
 
     /** draws the text box
      *
-     * @param batch
+     * @param batch batch used for drawing
      * @author Erikas Jovaisa
      */
     public void draw(SpriteBatch batch) {
@@ -39,14 +39,19 @@ public class TextBox extends Pannel {
     /**
      *changes what text this shows
      * 
-     * @param text
+     * @param text  The text to be changed to
      * @author Erikas
      */
     public void setText(String text) {
         this.text = text;
     }
 
-    /** lets interact prompt position get changed after construction */
+    /**
+     * lets interact prompt position get changed after construction 
+     * 
+     * @param x x-coordinate of position
+     * @param y y-coordinate of position
+    */
     public void setPosition(float x, float y) {
         this.x = x;
         this.y = y;

@@ -15,7 +15,7 @@ public class MapItem extends GameObject {
     /**
      * Constructor for Tile, with the most detail that can be added.
      * 
-     * @param texture      - The Tile's texture.
+     * @param texture      - The MapItem's texture.
      * @param x            - The MapItem's x-coordinate.
      * @param y            - The MapItem's y-coordinate.
      * @param gameViewport - The game's viewport.
@@ -36,6 +36,17 @@ public class MapItem extends GameObject {
         if (!containsValidID) {throw new IllegalArgumentException(itemID+" is not a recognised item ID");}
     }
 
+    /**
+     * 
+     * @param texture      - The MapItem's texture.
+     * @param x            - The MapItem's x-coordinate.
+     * @param y            - The MapItem's y-coordinate.
+     * @param width        - The MapItem's width.
+     * @param height       - The MapItem's height.
+     * @param gameViewport - The game's viewport.
+     * @param position     - The MapItem's position
+     * @throws IllegalArgumentException
+     */
     public MapItem(String itemID, int x, int y, int width, int height, Game game, Viewport gameViewport) throws IllegalArgumentException {
         super(new Texture(Gdx.files.internal(String.format(itemID+".png"))), x, y, width, height, game, gameViewport);
 
@@ -51,37 +62,62 @@ public class MapItem extends GameObject {
         if (!containsValidID) {throw new IllegalArgumentException(itemID+" is not a recognised item ID");}
     }
 
-    //Getters and setters
+    /**
+     * Returns whether the item is visible
+     * 
+     * @return whether the item is visible
+     */
     public boolean isVisible() {
         return visible;
     }
+    /**
+     * Returns the item's ID
+     * @return the item's ID
+     */
     public String getItemID() {
         return itemID;
     }
 
-    //Changes the tile's visibility.
+    /**
+     * Sets the item to be invisible.
+     */
     public void setInvisible() {
         visible = false;
         this.setColor(1f, 1f, 1f, 0f);
     }
+    /**
+     * Sets the item to be visible.
+     */
     public void setVisible() {
         visible = true;
         this.setColor(1f, 1f, 1f, 1f);
     }
 
-    //despawns item from the map, returns the item
+    /**
+     * Despawns item from the map, returns the item
+     * 
+     * @return this MapItem
+     */
     public MapItem pickUp() {
         setInvisible();
 
         return this;
     }
-    //Sets the item to visible, sets the x and y coordinates of the drop
+    /**
+     * Sets the item to visible, sets the x and y coordinates of the drop
+     * 
+     * @param x x-coordinate of the drop
+     * @param y y-coordinate of the drop
+     */
     public void drop(int x, int y) {
         setVisible();
 
         setX(x);
         setY(y);
     }
+    /**    (non-Javadoc)
+     * @see io.github.some_example_name.Sprites.GameObjects.GameObject#update(float)
+     */
 	@Override
 	public void update(float deltaTime) {
 		// TODO Auto-generated method stub
