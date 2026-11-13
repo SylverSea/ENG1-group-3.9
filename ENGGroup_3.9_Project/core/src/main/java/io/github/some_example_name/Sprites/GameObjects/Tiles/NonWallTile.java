@@ -14,8 +14,11 @@ public class NonWallTile extends Tile {
      * @param texture         - The NonWallTile's texture.
      * @param x               - The NonWallTile's x-coordinate.
      * @param y               - The NonWallTile's y-coordinate.
+     * @param width           - The NonWallTile's width.
+     * @param height          - The NonWallTile's height.
+     * @param checksForPlayer - Sets whether this is a detecting NonWallTile or not.
+     * @param game            - The game.
      * @param gameViewport    - The game's viewport.
-     * @param checksForPlayer - Sets whether this is a detecting NonWallTIle or not.
      * 
      * @author Sky Burrows
      */
@@ -25,10 +28,17 @@ public class NonWallTile extends Tile {
         this.checksForPlayer = checksForPlayer;
     }
 
-    //Getters and setters
+    /**
+     * Sets the check for the player
+     * @param checksForPlayer the check for the player
+     */
     public void setPlayerChecking(boolean checksForPlayer) {
         this.checksForPlayer = checksForPlayer;
     }
+    /**
+     * Returns the check for the player
+     * @return the check for the player
+     */
     public boolean getPlayerChecking() {
         return checksForPlayer;
     }

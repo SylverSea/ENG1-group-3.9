@@ -1,12 +1,9 @@
 package io.github.some_example_name.Sprites.GameObjects;
 
-import java.util.ArrayList;
-
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.viewport.Viewport;
 
-import io.github.some_example_name.GdxMainGame;
 import io.github.some_example_name.Sprites.GameObjects.MovingObjects.Player;
 
 /**
@@ -24,13 +21,13 @@ public abstract class InteractableObject extends GameObject {
     /**
      *constructor with most detail that can be added
      * 
-     * @param texture
-     * @param x
-     * @param y
-     * @param width
-     * @param height
-     * @param game
-     * @param gameViewport
+     * @param texture       The texture for the object.
+     * @param x             The x-coordinate of the object.
+     * @param y             The y-coordinate of the object.
+     * @param width         The width of the object.
+     * @param height        The height of the object.
+     * @param game          The game the object exists within.
+     * @param gameViewport  The viewport of the game
      * @author Erikas Jovaisa
      */
     public InteractableObject(Texture texture, int x, int y, int width, int height, Game game, Viewport gameViewport) {
@@ -38,10 +35,10 @@ public abstract class InteractableObject extends GameObject {
     }
 
     /**
-     * returns wether object can still be interacted with
+     * returns whether object can still be interacted with
      * used for statue and nest
      * 
-     * @return
+     * @return whether object can still be interacted with
      * @author Erikas Jovaisa
      */
     public boolean canInteract() {
@@ -53,7 +50,7 @@ public abstract class InteractableObject extends GameObject {
     /**
      * says what a normal use does
      * 
-     * @param player
+     * @param player    The player interacting with the object
      * @author Erikas Jovaisa
      */
     protected abstract void onUse(Player player);
@@ -62,15 +59,15 @@ public abstract class InteractableObject extends GameObject {
      * returns points awarded for normal use 
      * might want to add more points for second use
      * 
-     * @return
+     * @return points awarded for normal use
      * @author Erikas Jovaisa
      */
     protected abstract int getPoints();
 
     /**
-     *update every frame
+     * update every frame
      * 
-     * @param deltaTime
+     * @param deltaTime the time between frames
      * @author Erikas Jovaisa
      */
     @Override

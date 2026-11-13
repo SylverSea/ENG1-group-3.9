@@ -11,10 +11,10 @@ public class InventoryItem {
     private int quantity;
 
     /**
-     *saves iutem id and starting wuantity
+     *saves item id and starting wuantity
      * 
-     * @param itemID
-     * @param quantity
+     * @param itemID    ID of the item
+     * @param quantity  quantity of the item
      * @author Erikas
      */
     public InventoryItem(String itemID, int quantity) {
@@ -23,9 +23,9 @@ public class InventoryItem {
     }
 
     /**
-     * return itemid
+     * return itemID
      * 
-     * @return
+     * @return ID of the item
      * @author Erikas
      */
     public String getItemID() {
@@ -35,7 +35,7 @@ public class InventoryItem {
     /**
      * returns how many of this itenm player has
      * 
-     * @return
+     * @return how many of this itenm player has
      * @author Erikas
      */
     public int getQuantity() {
@@ -45,7 +45,7 @@ public class InventoryItem {
     /**
      *adds more of this item
      * 
-     * @param amount
+     * @param amount Ammount to be added
      * @author Erikas
      */
     public void add(int amount) {
@@ -53,10 +53,10 @@ public class InventoryItem {
     }
 
     /**
-     *removes this item if theres enough
+     *removes this item if there's enough
      * 
-     * @param amount
-     * @return
+     * @param amount Ammount to be removed
+     * @return  Whether there are enough items to be removed 
      * @author Erikas
      */
     public boolean remove(int amount) {
@@ -64,5 +64,4 @@ public class InventoryItem {
         quantity -= amount;
         return true;
     }
-
 }

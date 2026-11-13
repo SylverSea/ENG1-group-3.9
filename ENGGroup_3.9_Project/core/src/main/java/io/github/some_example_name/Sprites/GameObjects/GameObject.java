@@ -13,12 +13,13 @@ public abstract class GameObject extends Sprite {
     /**
      * Creates a new GameObject with the specified texture and position.
      *
-     * @param texture The texture for the object.
-     * @param x       The x-coordinate of the object.
-     * @param y       The y-coordinate of the object.
-     * @param width   The width of the object.
-     * @param height  The height of the object.
-     * @param game    The game the object exists within.
+     * @param texture       The texture for the object.
+     * @param x             The x-coordinate of the object.
+     * @param y             The y-coordinate of the object.
+     * @param width         The width of the object.
+     * @param height        The height of the object.
+     * @param game          The game the object exists within.
+     * @param gameViewport  The viewport of the game
      * @author Oliver Quantrill-Scott
      * @author James Garfield
      * @author Sky Burrows
@@ -46,9 +47,11 @@ public abstract class GameObject extends Sprite {
     /** 
      * Creates a new GameObject with the specified texture and position.
      * 
-     * @param texture The texture for the object.
-     * @param x       The x-coordinate of the object.
-     * @param y       The y-coordinate of the object.
+     * @param texture       The texture for the object.
+     * @param x             The x-coordinate of the object.
+     * @param y             The y-coordinate of the object.
+     * @param game          The game the object exists within.
+     * @param gameViewport  The viewport of the game
      * @author Oliver Quantrill-Scott
      */
     public GameObject(Texture texture, int x, int y, Game game, Viewport gameViewport) {

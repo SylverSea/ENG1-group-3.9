@@ -9,16 +9,14 @@ public class Inventory extends Menu {
 
     private Map<String, InventoryItem> items = new HashMap<>();
 
-    public Inventory() {
-
-    }
+    public Inventory() {}
 
     /**
      * Adds items to inventory, 
      * creating new stack if its first of that item
      * 
-     * @param itemID
-     * @param amount
+     * @param itemID ID of the item to be added
+     * @param amount Quantity of the item
      * @author Erikas Jovaisa
      */
     public void addItem(String itemID, int amount) {
@@ -32,8 +30,8 @@ public class Inventory extends Menu {
     /**
      *uses one of the chosen item if availible
      * 
-     * @param itemID
-     * @return
+     * @param itemID ID of the item to be used
+     * @return the item with one fewer amount
      * @author Erikas Jovaisa
      */
     public boolean useItem(String itemID) {
@@ -45,8 +43,8 @@ public class Inventory extends Menu {
     /**
      *looks up how many of an item the player holds
      * 
-     * @param itemID
-     * @return
+     * @param itemID ID of the item to be checked
+     * @return the quantity of the item
      * @author Erikas Jovaisa
      */
     public int getQuantity(String itemID) {

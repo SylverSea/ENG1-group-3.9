@@ -55,7 +55,6 @@ public class GdxMainGame extends Game {
     /** textbox dependant on if interact should pop up */
     private TextBox interactPrompt;
     private Viewport gameViewport = new ExtendViewport(400, 400);
-    private MapItem bandage;
 
     /** timer value (5min) */
     private static final float ROUND_DURATION = 300f;
@@ -236,7 +235,7 @@ public class GdxMainGame extends Game {
     /**
      * Updates the game state, including player and goose movements, interactions, and game over conditions.
      * 
-     * @param deltaTime
+     * @param deltaTime Time between frames
      * @author Oliver Quantrill-Scott
      * @author James Garfield
      */
@@ -373,9 +372,9 @@ public class GdxMainGame extends Game {
     }
 
     /**
-     * spawns goose when player interacts a 3rd time
+     * spawns goose
      *
-     * @param position
+     * @param position position for the goose to be spawned to
      * @author Erikas Jovaisa 
      */
     public void spawnGoose(Vector2 position) {
@@ -411,7 +410,7 @@ public class GdxMainGame extends Game {
      * temporary function to increment score 
      * at a (non finalised) amount
      * 
-     * @param amount
+     * @param amount Amount for score to be incremented by
      * @author Erikas Jovaisa
      */
     public void addScore(int amount) {
@@ -426,7 +425,11 @@ public class GdxMainGame extends Game {
         eventsTriggered++;
     }
 
-    /** re-syncs hudCamera and gameViewport to the new window size and re centers interact textbox */
+    /**    (non-Javadoc)
+     *  re-syncs hudCamera and gameViewport to the new window size and re centers interact textbox
+     * 
+     * @see com.badlogic.gdx.Game#resize(int, int)
+     */
     @Override
     public void resize(int width, int height) {
         gameViewport.update(width, height, true);

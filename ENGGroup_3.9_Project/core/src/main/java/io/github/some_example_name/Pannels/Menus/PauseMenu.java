@@ -11,14 +11,13 @@ import io.github.some_example_name.Pannels.Button;
 
 public class PauseMenu extends Menu {
 
-    // The batch used to draw the menu's images and text to the screen
+    /** The batch used to draw the menu's images and text to the screen */
     private SpriteBatch batch;
 
-    // The camera, used to position the menu relative to what the player sees. Makes menu fixed on screen.
+    /** The camera, used to position the menu relative to what the player sees. Makes menu fixed on screen. */
     private OrthographicCamera camera;
 
-    //the resume button - starting the game is now handled by the separate title screen (StartMenu)
-
+    /**the resume button - starting the game is now handled by the separate title screen (StartMenu) */
     private Button playButton = new Button(360, 220, 80, 30);
     private BitmapFont font = new BitmapFont();
 
