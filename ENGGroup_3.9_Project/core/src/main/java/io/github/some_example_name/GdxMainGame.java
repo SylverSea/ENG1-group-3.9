@@ -107,13 +107,30 @@ public class GdxMainGame extends Game {
             500, 200,
             40, 40,
             this, gameViewport));
+        tiles.add(new WallTile(wallTexture,
+            -810, -810,
+            10, 1610,
+            null, gameViewport));
+        tiles.add(new WallTile(wallTexture,
+            -810, 800,
+            1610, 10,
+            null, gameViewport));
+        tiles.add(new WallTile(wallTexture,
+            800, -800,
+            10, 1550,
+            null, gameViewport));
+        tiles.add(new WallTile(
+            wallTexture,
+            -800,-810,
+            1610, 10,
+            this, gameViewport));
         solidObjects.addAll(tiles); // Add the wall tile to the list of solid objects
 
         //Instanciate non-wall tiles
         tiles.add(0, new NonWallTile(
             new Texture(Gdx.files.internal(String.format("Background_TEMP.png"))),
-            -500, -500,
-            Math.round(camera.viewportWidth/20*32), Math.round(camera.viewportWidth/20*32),
+            -800, -800,
+            1600, 1600,
             false,
             this, gameViewport)
         );
@@ -122,7 +139,7 @@ public class GdxMainGame extends Game {
         Texture playertexture = new Texture(Gdx.files.internal(String.format("player.png")));
         player = new Player(
             playertexture,
-            0, 40,
+            0, 0,
             40, 80,
             this, gameViewport, 10, solidObjects); //creates players health
         gameObjects.add(player); // Add player to the list of game objects
@@ -154,13 +171,13 @@ public class GdxMainGame extends Game {
          */
         interactables.add(new Statue(
             new Texture(Gdx.files.internal(String.format("statue.png"))),
-            584, 473, //statue pos
+            600, 450, //statue pos
             34, 72, //statue size
             this, gameViewport));
         //
         interactables.add(new Nest(
             new Texture(Gdx.files.internal(String.format("nest.png"))),
-            -449, 626, //nest pos
+            -600, 700, //nest pos
             102, 102, //statue size
             this, gameViewport));
         gameObjects.addAll(interactables); //add statue and nest to drawing list
