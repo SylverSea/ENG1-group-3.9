@@ -69,6 +69,12 @@ public class GdxMainGame extends Game {
     private OrthographicCamera hudCamera = new OrthographicCamera();
     /** font cant be built until create runs */
     private BitmapFont font;
+    /** declares basic resolution width */
+    private static final float HUD_BASE_WIDTH = 800f;
+    /** declares basic resolution height  */
+    private static final float HUD_BASE_HEIGHT = 480f;
+    /** scaling value for hud */
+    private float hudScale = 1f;
 
     /** declares hotbar field */
     private Hotbar hotbar;
@@ -138,6 +144,7 @@ public class GdxMainGame extends Game {
 
         //matches hudcamera viewport to sceen pixel size so hud stays a fixed size regardless of camera.
         hudCamera.setToOrtho(false, Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        updateHudScale(); //calls update hud scale 
 
         hotbar = new Hotbar(batch, font); //constructs hotbar passing shared components
 
@@ -266,6 +273,11 @@ public class GdxMainGame extends Game {
             player.UseItem("bandage");
         }
 
+        //f11 key check calling toggleFullscreen()
+        if (Gdx.input.isKeyJustPressed(Input.Keys.F11)) {
+            toggleFullscreen();
+        }
+
         //Set camera position to player's position (adjusting for difference between Vector2 and Vector3)
         camera.position.set(player.getRelativePosition().x / 2, player.getRelativePosition().y / 2, 0);
         camera.update();
@@ -317,11 +329,13 @@ public class GdxMainGame extends Game {
 
         //wraps hud in game started 
         if (gameStarted) {
-            font.draw(batch, "Time: " + (int) timeRemaining, 10, Gdx.graphics.getHeight() - 10);
-            font.draw(batch, "Health: " + player.getCurrentHealth(), 10, Gdx.graphics.getHeight() - 30);
-            font.draw(batch, "Score: " + score, 10, Gdx.graphics.getHeight() - 50);
-            font.draw(batch, "Events: " + eventsTriggered, 10, Gdx.graphics.getHeight() - 70);
-            hotbar.draw(player.getInventory()); //draw hotbar each frame
+            float hudMargin = 10 * hudScale;
+            float hudLineHeight = 20 * hudScale;
+            font.draw(batch, "Time: " + (int) timeRemaining, hudMargin, Gdx.graphics.getHeight() - hudMargin);
+            font.draw(batch, "Health: " + player.getCurrentHealth(), hudMargin, Gdx.graphics.getHeight() - hudMargin - hudLineHeight);
+            font.draw(batch, "Score: " + score, hudMargin, Gdx.graphics.getHeight() - hudMargin - hudLineHeight * 2);
+            font.draw(batch, "Events: " + eventsTriggered, hudMargin, Gdx.graphics.getHeight() - hudMargin - hudLineHeight * 3);
+            hotbar.draw(player.getInventory(), player.getItemsUsedCount(), hudScale); //draw hotbar each frame
 
             if (showPrompt) {
                 interactPrompt.draw(batch);
@@ -335,7 +349,7 @@ public class GdxMainGame extends Game {
         if (!gameStarted) {
             startMenu.draw(); //title screen before the game has started
         } else if (isPaused) {
-            pauseMenu.draw(); //draws pause menu if paused mid-game
+            pauseMenu.draw(hudScale); //draws pause menu if paused mid-game
         }
 
         batch.end();
@@ -393,6 +407,33 @@ public class GdxMainGame extends Game {
      */
     public void incrementEvents() {
         eventsTriggered++;
+    }
+
+    /** re-syncs hudCamera and gameViewport to the new window size and re centers interact textbox */
+    @Override
+    public void resize(int width, int height) {
+        gameViewport.update(width, height, true);
+        hudCamera.setToOrtho(false, width, height);
+        hudCamera.update();
+        updateHudScale();
+        if (interactPrompt != null) {
+            interactPrompt.setPosition(width / 2f - 60, 130);
+        }
+    }
+
+    /** switches between windowed and fullscreen */
+    private void toggleFullscreen() {
+        if (Gdx.graphics.isFullscreen()) {
+            Gdx.graphics.setWindowedMode(640, 480);
+        } else {
+            Gdx.graphics.setFullscreenMode(Gdx.graphics.getDisplayMode());
+        }
+    }
+
+    /** workous out hudScale and applies it to BitmapFont */
+    private void updateHudScale() {
+        hudScale = Math.min(Gdx.graphics.getWidth() / HUD_BASE_WIDTH, Gdx.graphics.getHeight() / HUD_BASE_HEIGHT);
+        font.getData().setScale(hudScale);
     }
 
     /** disposes of everything when closed (libgdx classic)

@@ -27,6 +27,8 @@ public class Player extends MovingObject {
     private int currentHealth;
     /** hold whatever player has picked up */
     private Inventory inventory = new Inventory();
+    /** tracks how many items have been used */
+    private int itemsUsedCount = 0;
     /** implemented to make it so player cant walk through the statue/nest, undecided -adding  */
 
     /** animation frame duration*/
@@ -225,9 +227,16 @@ public class Player extends MovingObject {
     public void UseItem(String itemID) {
         if (!inventory.useItem(itemID)) return; 
 
+        itemsUsedCount++; //increments items used counter
+
         if (itemID.equals("bandage")) {
             Heal(25);
         }
+    }
+
+    /** returns count for the hud to read */
+    public int getItemsUsedCount() {
+        return itemsUsedCount;
     }
 
     /**

@@ -9,6 +9,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Button extends Pannel {
 
     private float x, y, width, height;
+    /** valuse for buttons scale */
+    private float scale = 1f;
     /** A single pixel, stretched to the button's size when drawn. */
     private Texture boxTexture;
     /** same box, a bit darker - shown while the mouse is hovering over the button */
@@ -87,7 +89,8 @@ public class Button extends Pannel {
     }
 
     /**
-     *checks if a point falls in buttons bounds
+     * checks if a point falls in buttons bounds and 
+     * click bounds multiple by scale to adjust for screen size
      * 
      * @param touchX
      * @param touchY
@@ -95,7 +98,12 @@ public class Button extends Pannel {
      * @author Erikas Jovaisa
      */
     public boolean isClicked(float touchX, float touchY) {
-        return touchX >= x && touchX <= x + width && touchY >= y && touchY <= y + height;
+        return touchX >= x * scale && touchX <= x * scale + width * scale && touchY >= y * scale && touchY <= y * scale + height * scale;
+    }
+
+    /** button scale can be changed */
+    public void setScale(float scale) {
+        this.scale = scale;
     }
 
     /**
@@ -133,8 +141,8 @@ public class Button extends Pannel {
      * @author Erikas Jovaisa
      */
     public void draw(SpriteBatch batch, String label, BitmapFont font, boolean hovered) {
-        batch.draw(hovered ? hoverBoxTexture : boxTexture, x, y, width, height);
+        batch.draw(hovered ? hoverBoxTexture : boxTexture, x * scale, y * scale, width * scale, height * scale);
         font.setColor(textColor);
-        font.draw(batch, label, x + 20, y + 20);
+        font.draw(batch, label, x * scale + 20 * scale, y * scale + 20 * scale);
     }
 }

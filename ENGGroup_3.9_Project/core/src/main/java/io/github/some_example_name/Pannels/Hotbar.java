@@ -45,20 +45,27 @@ public class Hotbar extends Pannel {
      * draws bandage and egg slots in fixed screen positions
      * can be changed to change by resolution
      */
-    public void draw(Inventory inventory) {
-        drawSlot(bandageIcon, inventory.getQuantity("bandage"), "1", 280, 10);
-        drawSlot(eggIcon, inventory.getQuantity("egg"), "2", 330, 10);
+    public void draw(Inventory inventory, int itemsUsed, float scale) {
+        float baseX = 280 * scale;
+        float baseY = 10 * scale;
+        float slotSize = 40 * scale;
+        float slotGap = 50 * scale;
+        drawSlot(bandageIcon, inventory.getQuantity("bandage"), "1", baseX, baseY, scale);
+        drawSlot(eggIcon, inventory.getQuantity("egg"), "2", baseX + slotGap, baseY, scale);
+        font.draw(batch, "Items used: " + itemsUsed, baseX, baseY + slotSize + 20 * scale); //draws "items used : x" above hotbar
     }
 
     /**
      * draws one box slot with its key label, only draws the icon and held amounut when ammount> 0
      */
-    private void drawSlot(Texture icon, int quantity, String keyLabel, float x, float y) {
-        batch.draw(slotTexture, x, y, 40, 40);
-        font.draw(batch, keyLabel, x + 2, y + 38);
+    private void drawSlot(Texture icon, int quantity, String keyLabel, float x, float y, float scale) {
+        float slotSize = 40 * scale;
+        float iconSize = 32 * scale;
+        batch.draw(slotTexture, x, y, slotSize, slotSize);
+        font.draw(batch, keyLabel, x + 2 * scale, y + 38 * scale);
         if (quantity > 0) {
-            batch.draw(icon, x + 4, y + 4, 32, 32);
-            font.draw(batch, String.valueOf(quantity), x + 28, y + 14);
+            batch.draw(icon, x + 4 * scale, y + 4 * scale, iconSize, iconSize);
+            font.draw(batch, String.valueOf(quantity), x + 28 * scale, y + 14 * scale);
         }
     }
 }

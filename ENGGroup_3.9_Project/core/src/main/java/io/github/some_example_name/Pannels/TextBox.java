@@ -45,4 +45,10 @@ public class TextBox extends Pannel {
     public void setText(String text) {
         this.text = text;
     }
+
+    /** lets interact prompt position get changed after construction */
+    public void setPosition(float x, float y) {
+        this.x = x;
+        this.y = y;
+    }
 }

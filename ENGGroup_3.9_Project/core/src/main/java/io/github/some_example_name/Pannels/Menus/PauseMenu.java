@@ -52,8 +52,10 @@ public class PauseMenu extends Menu {
      *
      * @author Erikas Jovaisa
      */
-    public void draw() {
-        batch.draw(dimOverlay, 0, 0, 640, 480); //dims the fixed 640x480 hud area behind the resume button
+    public void draw(float scale) {
+        playButton.setScale(scale);
+        font.getData().setScale(scale);
+        batch.draw(dimOverlay, 0, 0, Gdx.graphics.getWidth(), Gdx.graphics.getHeight()); //dims the whole screen, not just a fixed 640x480 area
         playButton.draw(batch, "RESUME", font);
     }
 

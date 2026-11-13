@@ -3,6 +3,7 @@ Bandage.png
 Egg.png
 controls_legend.png
 goose.png
+goose_walk.png
 nest.png
 placeholder_logo_240_120_px.png
 player.png
